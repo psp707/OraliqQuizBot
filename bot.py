@@ -13,8 +13,8 @@ from aiogram.fsm.state import State, StatesGroup
 from aiogram.fsm.storage.memory import MemoryStorage
 
 # ================= SOZLAMALAR =================
-BOT_TOKEN = "BOT_TOKEN"
-ADMIN_ID = ADMIN_ID  # <--- O'Z ID RAQAMINGIZ
+BOT_TOKEN = os.environ.get("BOT_TOKEN")
+ADMIN_ID = int(os.environ.get("ADMIN_ID", 0))
 QUIZ_TIME = 15
 PM_BLOCK_SIZE = 30      # Shaxsiy chatda har necha savolda blok natijasi
 GROUP_BLOCK_SIZE = 39   # Guruhda har necha savolda reyting
