@@ -49,11 +49,27 @@ def init_db():
     cursor = conn.cursor()
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS results (
-            user_id INTEGER, username TEXT, full_name TEXT,
-            score INTEGER, total_questions INTEGER, topic TEXT, chat_id INTEGER, chat_type TEXT, date TEXT,
-            UNIQUE(user_id, topic, chat_id, chat_type)
+            user_id INTEGER PRIMARY KEY, username TEXT, full_name TEXT,
+            score INTEGER, total_questions INTEGER, topic TEXT, chat_id INTEGER, chat_type TEXT, date TEXT
         )
     ''')
+    # Agar jadval allaqachon mavjud bo'lsa va chat_type ustuni yo'q bo'lsa, qo'shamiz
+    try:
+        cursor.execute("ALTER TABLE results ADD COLUMN chat_type TEXT")
+    except sqlite3.OperationalError:
+        pass  # Ustun allaqachon mavjud, xatolikni e'tiborsiz qoldiramiz
+    
+    conn.commit()
+    conn.close()
+
+def save_result(user_id, username, full_name, score, total, topic, chat_id, chat_type="private"):
+    conn = sqlite3.connect('quiz_results.db')
+    cursor = conn.cursor()
+    cursor.execute('''
+        INSERT OR REPLACE INTO results (user_id, username, full_name, score, total_questions, topic, chat_id, chat_type, date)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+    ''', (user_id, username, full_name, score, total, topic, chat_id, chat_type,
+          datetime.now().strftime("%Y-%m-%d %H:%M")))
     conn.commit()
     conn.close()
 
@@ -170,26 +186,19 @@ async def set_bot_commands():
         BotCommand(command="stop",     description="⏹ To'xtatish"),
         BotCommand(command="help",     description="❓ Yordam"),
     ]
-    
     group_commands = [
         BotCommand(command="start",    description="🚀 Guruh testini boshlash"),
         BotCommand(command="stop",     description="⏹ To'xtatish (admin)"),
         BotCommand(command="results",  description="📊 Natijalar (admin)"),
         BotCommand(command="help",     description="❓ Yordam"),
     ]
-    
     try:
-        # Shaxsiy chat uchun
         await bot.set_my_commands(private_commands, scope=BotCommandScopeAllPrivateChats())
-        print("✅ Shaxsiy chat komandalari sozlandi!")
-        
-        # Barcha guruhlar uchun
         await bot.set_my_commands(group_commands, scope=BotCommandScopeAllGroupChats())
-        print("✅ Guruh komandalari sozlandi!")
-        
+        print("✅ Komandalar muvaffaqiyatli sozlandi!")
     except Exception as e:
         print(f"⚠️ Xatolik: {e}")
-def get_stop_keyboard():
+      def get_stop_keyboard():
     return InlineKeyboardMarkup(inline_keyboard=[
         [InlineKeyboardButton(text="⏹ To'xtatish", callback_data="stop_quiz")]
     ])
@@ -686,37 +695,54 @@ async def cmd_help(message: Message):
             "⏹ <b>/stop</b> — To'xtatish (admin)", parse_mode="HTML")
 
 @router.message(Command("stop"))
-async def cmd_stop(message: Message, state: FSMContext = None):
-    if message.from_user.is_bot: return
-    user_id = message.from_user.id
-    
-    if message.chat.type == 'private':
+@router.callback_query(F.data == "stop_quiz")
+async def cmd_stop(message_or_callback, state: FSMContext = None):
+    if isinstance(message_or_callback, CallbackQuery):
+        user_id = message_or_callback.from_user.id
+        chat_type = message_or_callback.message.chat.type
+        chat_id = message_or_callback.message.chat.id
+        respond = message_or_callback.message.answer
+        ack = message_or_callback.answer
+    else:
+        user_id = message_or_callback.from_user.id
+        chat_type = message_or_callback.chat.type
+        chat_id = message_or_callback.chat.id
+        respond = message_or_callback.answer
+        async def noop(): pass
+        ack = noop
+
+    if chat_type == 'private':
         session = user_sessions.get(user_id)
         if session:
             if session.get("timer_task"): session["timer_task"].cancel()
             if session.get("update_timer_task"): session["update_timer_task"].cancel()
+            
             total = len(session["questions"])
             score = session["score"]
-            save_result(user_id, session.get("username"), session.get("full_name"),
-                        score, total, session["topic_name"], session["chat_id"], "private")
+            save_result(user_id, session.get("username"), session.get("full_name"), score, total, session["topic_name"], session["chat_id"], chat_type)
             del user_sessions[user_id]
-            await message.answer(
-                f"⏹ <b>To'xtatildi!</b>\n✅ {score}/{total} ({round(score/total*100) if total else 0}%)\n\n/start",
+            
+            await respond(
+                f"⏹ <b>Test to'xtatildi!</b>\n\n"
+                f"✅ Natija: <b>{score}</b> / <b>{total}</b>\n"
+                f"📈 Foiz: <b>{round(score / total * 100) if total > 0 else 0}%</b>\n\n"
+                f"Qayta boshlash uchun /start bosing.",
                 parse_mode="HTML"
             )
             if state: await state.set_state(QuizStates.idle)
         else:
-            await message.answer("Test boshlanmagan.")
+            await respond("Siz hali test boshlamagansiz.")
     else:
-        if user_id == ADMIN_ID:
-            chat_id = message.chat.id
-            if chat_id in active_games and active_games[chat_id]["is_running"]:
-                await end_game_group(chat_id)
+        if chat_id in group_sessions:
+            if user_id == ADMIN_ID:
+                await end_group_quiz(chat_id)
+                await respond("⏹ Guruh quizi to'xtatildi!")
             else:
-                await message.answer("O'yin yo'q.")
+                await respond("🔒 Quizni faqat admin to'xtata oladi!")
         else:
-            await message.answer("🔒 Faqat admin to'xtata oladi!")
-
+            await respond("Guruhda quiz ketmayapti.")
+    
+    await ack()
 @router.callback_query(F.data == "stop_quiz")
 async def stop_quiz_cb(callback: CallbackQuery, state: FSMContext = None):
     user_id = callback.from_user.id
