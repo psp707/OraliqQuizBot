@@ -185,7 +185,7 @@ async def set_bot_commands():
         BotCommand(command="stats",    description="📈 Shaxsiy statistika"),
         BotCommand(command="stop",     description="⏹ To'xtatish"),
         BotCommand(command="help",     description="❓ Yordam"),
-        BotCommand(command="continue",   description="-> Davom etish"),
+      
     ]
     group_commands = [
         BotCommand(command="start",    description="🚀 Guruh testini boshlash"),
