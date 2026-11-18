@@ -199,7 +199,8 @@ async def set_bot_commands():
         print("✅ Komandalar muvaffaqiyatli sozlandi!")
     except Exception as e:
         print(f"⚠️ Xatolik: {e}")
-      def get_stop_keyboard():
+      
+  def get_stop_keyboard():
     return InlineKeyboardMarkup(inline_keyboard=[
         [InlineKeyboardButton(text="⏹ To'xtatish", callback_data="stop_quiz")]
     ])
