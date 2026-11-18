@@ -1,0 +1,812 @@
+﻿OYD TESTLARI — 02 Konstruktor destruktor
+Standart: C++. Savollar soni: 80 (20 nazariy, 60 kodli).
+
+081. [Nazariy] Konstruktorning asosiy vazifasi nima?
+A. Obyektning faylini o‘chirish
+B. Sinfdan voris olish
+C. Obyektni yaratilish vaqtida initsializatsiya qilish
+D. Dasturdan chiqish
+ANSWER: C
+
+082. [Nazariy] Konstruktor nomi qanday bo‘ladi?
+A. Doimo main
+B. Oldida ~ bo‘ladi
+C. Doimo init
+D. Sinf nomi bilan bir xil
+ANSWER: D
+
+083. [Nazariy] Konstruktorning qaytish turi qanday?
+A. Har doim void
+B. Har doim bool
+C. Har doim int
+D. Qaytish turi ko‘rsatilmaydi, hatto void ham emas
+ANSWER: D
+
+084. [Nazariy] Destruktor nomi qanday yoziladi?
+A. delete SinfNomi
+B. SinfNomi~
+C. free SinfNomi
+D. ~SinfNomi
+ANSWER: D
+
+085. [Nazariy] Bir sinfda nechta destruktor bo‘lishi mumkin?
+A. Har bir obyekt uchun alohida
+B. Bitta (parametrlarsiz)
+C. Istalgancha overload
+D. Ikkita, biri static
+ANSWER: B
+
+086. [Nazariy] Bir sinfda bir nechta konstruktor bo‘lishi mumkinmi?
+A. Faqat virtual bo‘lsa
+B. Ha, parametrlar ro‘yxati bilan farqlansa
+C. Yo‘q, faqat bitta
+D. Faqat ikkita
+ANSWER: B
+
+087. [Nazariy] Standart (default) konstruktor qanday chaqirilishi mumkin?
+A. Faqat bitta int bilan
+B. Faqat return bilan
+C. Argument bermasdan
+D. Faqat ko‘rsatkich bilan
+ANSWER: C
+
+088. [Nazariy] Nusxa konstruktori uchun odatiy parametr qaysi?
+A. A*
+B. int
+C. void
+D. const A&
+ANSWER: D
+
+089. [Nazariy] `A b = a;` (A obyektlar) ifodasi odatda qaysi amalni bajaradi?
+A. a ni o‘chiradi
+B. b ni a asosida nusxalab yaratadi
+C. b ga keyin tayinlash operatorini majburiy chaqiradi
+D. Hech narsa qilmaydi
+ANSWER: B
+
+090. [Nazariy] `b = a;` (ikkalasi avval yaratilgan) odatda nima?
+A. Nusxalash orqali tayinlash
+B. Nusxa konstruktorining majburiy chaqirilishi
+C. Sinf e’loni
+D. Destruktor e’loni
+ANSWER: A
+
+091. [Nazariy] Destruktor qachon chaqiriladi?
+A. Faqat kompilyatsiyada
+B. Obyektning yashash muddati tugaganda
+C. Har bir metod chaqirilganda
+D. Har bir if shartida
+ANSWER: B
+
+092. [Nazariy] Avtomatik lokal obyektlar blok tugaganda qanday yo‘q qilinadi?
+A. Tasodifiy
+B. Yaratilishiga teskari tartibda
+C. Alifbo bo‘yicha
+D. Yaratilish tartibida
+ANSWER: B
+
+093. [Nazariy] `new A` bilan olingan obyektni odatda qanday yo‘q qilinadi?
+A. remove(p)
+B. delete p
+C. clear(p)
+D. free(p)
+ANSWER: B
+
+094. [Nazariy] `new A[3]` bilan olingan massivni qanday o‘chirish kerak?
+A. erase p
+B. delete p
+C. free(p)
+D. delete[] p
+ANSWER: D
+
+095. [Nazariy] A’zo obyekt va uning egasi konstruktorlarining tartibi qaysi?
+A. Tasodifiy
+B. Avval egasi tanasi, keyin a’zo
+C. Faqat egasi
+D. Avval a’zo obyekt, keyin egasi konstruktor tanasi
+ANSWER: D
+
+096. [Nazariy] Hosila obyekt yaratilganda konstruktorlar tartibi qanday?
+A. Avval bazaviy, keyin hosila
+B. Faqat bazaviy
+C. Avval hosila, keyin bazaviy
+D. Faqat hosila
+ANSWER: A
+
+097. [Nazariy] Hosila obyekt yo‘q qilinganda destruktorlar tartibi qanday?
+A. Avval bazaviy, keyin hosila
+B. Faqat bazaviy
+C. Tasodifiy
+D. Avval hosila, keyin bazaviy
+ANSWER: D
+
+098. [Nazariy] Initializer list (initsializatsiya ro‘yxati) nima uchun ishlatiladi?
+A. Faqat sinfni yashirish uchun
+B. Faqat cout chiqarish uchun
+C. A’zolar va bazaviy qismlarni konstruktor tanasidan oldin boshlang‘ichlash uchun
+D. Faqat destruktorni o‘chirish uchun
+ANSWER: C
+
+099. [Nazariy] `explicit` bir argumentli konstruktor uchun odatda nimani cheklaydi?
+A. Destruktorni
+B. A’zo nomlarini
+C. Obyekt yaratilishini butunlay
+D. Ko‘zda tutilmagan implicit tur o‘zgartirishlarini
+ANSWER: D
+
+100. [Nazariy] Bazaviy sinf destruktori qachon virtual bo‘lishi zarur?
+A. Faqat static sinflarda
+B. Har doim barcha sinflarda
+C. Faqat konstruktor virtual bo‘lsa
+D. Bazaviy ko‘rsatkich orqali hosila obyektni delete qilish ko‘zda tutilganda
+ANSWER: D
+
+101. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:A(){cout<<"A";}};
+int main(){A a;cout<<2;}
+A. A2A
+B. A2B
+C. 2A
+D. A2
+ANSWER: D
+
+102. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:A(){cout<<"A";}};
+int main(){A a;cout<<3;}
+A. A3
+B. 3A
+C. A3B
+D. A3A
+ANSWER: A
+
+103. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:A(){cout<<"A";}};
+int main(){A a;cout<<4;}
+A. 4A
+B. A4A
+C. A4
+D. A4B
+ANSWER: C
+
+104. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:A(){cout<<"A";}};
+int main(){A a;cout<<5;}
+A. A5B
+B. 5A
+C. A5A
+D. A5
+ANSWER: D
+
+105. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:A(){cout<<"A";}};
+int main(){A a;cout<<6;}
+A. A6A
+B. A6B
+C. A6
+D. 6A
+ANSWER: C
+
+106. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:A(int x){cout<<x;}};
+int main(){A a(2);}
+A. 2
+B. 3
+C. 4
+D. 1
+ANSWER: A
+
+107. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:A(int x){cout<<x;}};
+int main(){A a(3);}
+A. 2
+B. 3
+C. 5
+D. 4
+ANSWER: B
+
+108. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:A(int x){cout<<x;}};
+int main(){A a(4);}
+A. 4
+B. 6
+C. 3
+D. 5
+ANSWER: A
+
+109. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:A(int x){cout<<x;}};
+int main(){A a(5);}
+A. 4
+B. 7
+C. 5
+D. 6
+ANSWER: C
+
+110. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:A(int x){cout<<x;}};
+int main(){A a(6);}
+A. 5
+B. 8
+C. 6
+D. 7
+ANSWER: C
+
+111. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:A(){cout<<"A";}~A(){cout<<"B";}};
+int main(){A a;cout<<2;}
+A. A2B
+B. B2A
+C. A2BB
+D. A2BA
+ANSWER: A
+
+112. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:A(){cout<<"A";}~A(){cout<<"B";}};
+int main(){A a;cout<<3;}
+A. B3A
+B. A3BB
+C. A3B
+D. A3BA
+ANSWER: C
+
+113. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:A(){cout<<"A";}~A(){cout<<"B";}};
+int main(){A a;cout<<4;}
+A. A4BB
+B. A4B
+C. B4A
+D. A4BA
+ANSWER: B
+
+114. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:A(){cout<<"A";}~A(){cout<<"B";}};
+int main(){A a;cout<<5;}
+A. A5BB
+B. A5BA
+C. B5A
+D. A5B
+ANSWER: D
+
+115. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:A(){cout<<"A";}~A(){cout<<"B";}};
+int main(){A a;cout<<6;}
+A. A6B
+B. A6BB
+C. B6A
+D. A6BA
+ANSWER: A
+
+116. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:A(){cout<<"X";}~A(){cout<<"Y";}};
+int main(){A a;{A b;}cout<<2;}
+A. XXY2Y
+B. XXY2YB
+C. XXY2YA
+D. Y2YXX
+ANSWER: A
+
+117. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:A(){cout<<"X";}~A(){cout<<"Y";}};
+int main(){A a;{A b;}cout<<3;}
+A. XXY3YA
+B. Y3YXX
+C. XXY3YB
+D. XXY3Y
+ANSWER: D
+
+118. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:A(){cout<<"X";}~A(){cout<<"Y";}};
+int main(){A a;{A b;}cout<<4;}
+A. XXY4YA
+B. Y4YXX
+C. XXY4YB
+D. XXY4Y
+ANSWER: D
+
+119. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:A(){cout<<"X";}~A(){cout<<"Y";}};
+int main(){A a;{A b;}cout<<5;}
+A. XXY5YB
+B. XXY5Y
+C. XXY5YA
+D. Y5YXX
+ANSWER: B
+
+120. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:A(){cout<<"X";}~A(){cout<<"Y";}};
+int main(){A a;{A b;}cout<<6;}
+A. Y6YXX
+B. XXY6YA
+C. XXY6YB
+D. XXY6Y
+ANSWER: D
+
+121. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:A(int x){cout<<x;}~A(){cout<<"D";}};
+int main(){A a(2),b(4);}
+A. 24DDB
+B. DD42
+C. 24DD
+D. 24DDA
+ANSWER: C
+
+122. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:A(int x){cout<<x;}~A(){cout<<"D";}};
+int main(){A a(3),b(5);}
+A. 35DDB
+B. 35DDA
+C. DD53
+D. 35DD
+ANSWER: D
+
+123. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:A(int x){cout<<x;}~A(){cout<<"D";}};
+int main(){A a(4),b(6);}
+A. 46DDB
+B. 46DD
+C. 46DDA
+D. DD64
+ANSWER: B
+
+124. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:A(int x){cout<<x;}~A(){cout<<"D";}};
+int main(){A a(5),b(7);}
+A. 57DDB
+B. 57DD
+C. 57DDA
+D. DD75
+ANSWER: B
+
+125. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:A(int x){cout<<x;}~A(){cout<<"D";}};
+int main(){A a(6),b(8);}
+A. 68DDA
+B. 68DD
+C. DD86
+D. 68DDB
+ANSWER: B
+
+126. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:A(){cout<<"C";}A(const A&){cout<<"N";}};
+int main(){A a;A b=a;cout<<2;}
+A. CN2
+B. CN2A
+C. CN2B
+D. 2NC
+ANSWER: A
+
+127. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:A(){cout<<"C";}A(const A&){cout<<"N";}};
+int main(){A a;A b=a;cout<<3;}
+A. CN3A
+B. CN3
+C. 3NC
+D. CN3B
+ANSWER: B
+
+128. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:A(){cout<<"C";}A(const A&){cout<<"N";}};
+int main(){A a;A b=a;cout<<4;}
+A. CN4A
+B. 4NC
+C. CN4
+D. CN4B
+ANSWER: C
+
+129. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:A(){cout<<"C";}A(const A&){cout<<"N";}};
+int main(){A a;A b=a;cout<<5;}
+A. CN5A
+B. 5NC
+C. CN5
+D. CN5B
+ANSWER: C
+
+130. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:A(){cout<<"C";}A(const A&){cout<<"N";}};
+int main(){A a;A b=a;cout<<6;}
+A. CN6
+B. CN6B
+C. CN6A
+D. 6NC
+ANSWER: A
+
+131. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:A(){cout<<"A";}~A(){cout<<"Z";}};
+int main(){A* p=new A;cout<<2;delete p;}
+A. A2ZB
+B. A2ZA
+C. Z2A
+D. A2Z
+ANSWER: D
+
+132. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:A(){cout<<"A";}~A(){cout<<"Z";}};
+int main(){A* p=new A;cout<<3;delete p;}
+A. A3Z
+B. Z3A
+C. A3ZA
+D. A3ZB
+ANSWER: A
+
+133. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:A(){cout<<"A";}~A(){cout<<"Z";}};
+int main(){A* p=new A;cout<<4;delete p;}
+A. Z4A
+B. A4ZB
+C. A4ZA
+D. A4Z
+ANSWER: D
+
+134. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:A(){cout<<"A";}~A(){cout<<"Z";}};
+int main(){A* p=new A;cout<<5;delete p;}
+A. A5Z
+B. Z5A
+C. A5ZA
+D. A5ZB
+ANSWER: A
+
+135. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:A(){cout<<"A";}~A(){cout<<"Z";}};
+int main(){A* p=new A;cout<<6;delete p;}
+A. A6ZA
+B. A6Z
+C. A6ZB
+D. Z6A
+ANSWER: B
+
+136. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class B{public:B(){cout<<"B";}~B(){cout<<"b";}};
+class D:public B{public:D(){cout<<"D";}~D(){cout<<"d";}};
+int main(){D x;cout<<2;}
+A. BD2dbB
+B. BD2db
+C. BD2dbA
+D. bd2DB
+ANSWER: B
+
+137. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class B{public:B(){cout<<"B";}~B(){cout<<"b";}};
+class D:public B{public:D(){cout<<"D";}~D(){cout<<"d";}};
+int main(){D x;cout<<3;}
+A. BD3dbB
+B. BD3db
+C. BD3dbA
+D. bd3DB
+ANSWER: B
+
+138. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class B{public:B(){cout<<"B";}~B(){cout<<"b";}};
+class D:public B{public:D(){cout<<"D";}~D(){cout<<"d";}};
+int main(){D x;cout<<4;}
+A. BD4db
+B. BD4dbA
+C. BD4dbB
+D. bd4DB
+ANSWER: A
+
+139. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class B{public:B(){cout<<"B";}~B(){cout<<"b";}};
+class D:public B{public:D(){cout<<"D";}~D(){cout<<"d";}};
+int main(){D x;cout<<5;}
+A. bd5DB
+B. BD5dbB
+C. BD5dbA
+D. BD5db
+ANSWER: D
+
+140. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class B{public:B(){cout<<"B";}~B(){cout<<"b";}};
+class D:public B{public:D(){cout<<"D";}~D(){cout<<"d";}};
+int main(){D x;cout<<6;}
+A. BD6db
+B. BD6dbB
+C. bd6DB
+D. BD6dbA
+ANSWER: A
+
+141. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{int x;public:A(int n):x(n){}int get()const{return x;}};
+int main(){A a(2);cout<<a.get();}
+A. 4
+B. 3
+C. 1
+D. 2
+ANSWER: D
+
+142. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{int x;public:A(int n):x(n){}int get()const{return x;}};
+int main(){A a(3);cout<<a.get();}
+A. 4
+B. 3
+C. 2
+D. 5
+ANSWER: B
+
+143. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{int x;public:A(int n):x(n){}int get()const{return x;}};
+int main(){A a(4);cout<<a.get();}
+A. 5
+B. 4
+C. 6
+D. 3
+ANSWER: B
+
+144. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{int x;public:A(int n):x(n){}int get()const{return x;}};
+int main(){A a(5);cout<<a.get();}
+A. 7
+B. 6
+C. 4
+D. 5
+ANSWER: D
+
+145. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{int x;public:A(int n):x(n){}int get()const{return x;}};
+int main(){A a(6);cout<<a.get();}
+A. 6
+B. 5
+C. 8
+D. 7
+ANSWER: A
+
+146. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:A(){cout<<"A";}~A(){cout<<"a";}};
+int main(){A x[2];cout<<2;}
+A. aa2AA
+B. AA2aaB
+C. AA2aa
+D. AA2aaA
+ANSWER: C
+
+147. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:A(){cout<<"A";}~A(){cout<<"a";}};
+int main(){A x[2];cout<<3;}
+A. aa3AA
+B. AA3aaA
+C. AA3aa
+D. AA3aaB
+ANSWER: C
+
+148. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:A(){cout<<"A";}~A(){cout<<"a";}};
+int main(){A x[2];cout<<4;}
+A. AA4aaA
+B. aa4AA
+C. AA4aaB
+D. AA4aa
+ANSWER: D
+
+149. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:A(){cout<<"A";}~A(){cout<<"a";}};
+int main(){A x[2];cout<<5;}
+A. AA5aa
+B. AA5aaB
+C. AA5aaA
+D. aa5AA
+ANSWER: A
+
+150. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:A(){cout<<"A";}~A(){cout<<"a";}};
+int main(){A x[2];cout<<6;}
+A. AA6aa
+B. aa6AA
+C. AA6aaA
+D. AA6aaB
+ANSWER: A
+
+151. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class M{public:M(){cout<<"M";}~M(){cout<<"m";}};
+class A{M x;public:A(){cout<<"A";}~A(){cout<<"a";}};
+int main(){A a;cout<<2;}
+A. MA2amA
+B. MA2amB
+C. ma2AM
+D. MA2am
+ANSWER: D
+
+152. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class M{public:M(){cout<<"M";}~M(){cout<<"m";}};
+class A{M x;public:A(){cout<<"A";}~A(){cout<<"a";}};
+int main(){A a;cout<<3;}
+A. MA3am
+B. MA3amA
+C. MA3amB
+D. ma3AM
+ANSWER: A
+
+153. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class M{public:M(){cout<<"M";}~M(){cout<<"m";}};
+class A{M x;public:A(){cout<<"A";}~A(){cout<<"a";}};
+int main(){A a;cout<<4;}
+A. MA4amB
+B. ma4AM
+C. MA4am
+D. MA4amA
+ANSWER: C
+
+154. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class M{public:M(){cout<<"M";}~M(){cout<<"m";}};
+class A{M x;public:A(){cout<<"A";}~A(){cout<<"a";}};
+int main(){A a;cout<<5;}
+A. MA5amB
+B. ma5AM
+C. MA5am
+D. MA5amA
+ANSWER: C
+
+155. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class M{public:M(){cout<<"M";}~M(){cout<<"m";}};
+class A{M x;public:A(){cout<<"A";}~A(){cout<<"a";}};
+int main(){A a;cout<<6;}
+A. ma6AM
+B. MA6amA
+C. MA6amB
+D. MA6am
+ANSWER: D
+
+156. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:A(int){cout<<"I";}A(){cout<<"O";}};
+int main(){A a(2),b;}
+A. IOB
+B. IOA
+C. OI
+D. IO
+ANSWER: D
+
+157. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:A(int){cout<<"I";}A(){cout<<"O";}};
+int main(){A a(3),b;}
+A. IOB
+B. IOA
+C. OI
+D. IO
+ANSWER: D
+
+158. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:A(int){cout<<"I";}A(){cout<<"O";}};
+int main(){A a(4),b;}
+A. IOB
+B. IOA
+C. IO
+D. OI
+ANSWER: C
+
+159. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:A(int){cout<<"I";}A(){cout<<"O";}};
+int main(){A a(5),b;}
+A. IOA
+B. OI
+C. IOB
+D. IO
+ANSWER: D
+
+160. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:A(int){cout<<"I";}A(){cout<<"O";}};
+int main(){A a(6),b;}
+A. IOA
+B. IOB
+C. OI
+D. IO
+ANSWER: D

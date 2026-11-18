@@ -1,0 +1,812 @@
+﻿OYD TESTLARI — 03 Inkapsulyatsiya modifikatorlar
+Standart: C++. Savollar soni: 80 (20 nazariy, 60 kodli).
+
+161. [Nazariy] Inkapsulyatsiya nimani anglatadi?
+A. Holat va amallarni sinfda birlashtirish hamda kirishni interfeys orqali boshqarish
+B. Faqat ko‘p martalik vorislik
+C. Faqat ekranga chiqarish
+D. Barcha a’zolarni public qilish
+ANSWER: A
+
+162. [Nazariy] `private` a’zoga odatdagi tashqi kod qanday murojaat qiladi?
+A. Istalgancha murojaat qiladi
+B. To‘g‘ridan-to‘g‘ri murojaat qila olmaydi
+C. Faqat obyekt nomi orqali kiradi
+D. Faqat cout bilan kiradi
+ANSWER: B
+
+163. [Nazariy] `public` a’zo qanday foydalaniladi?
+A. Faqat hosila sinfdan
+B. Faqat do‘stona funksiya orqali
+C. Kirish mumkin bo‘lgan kontekstda sinf tashqarisidan ham ishlatiladi
+D. Faqat sinf ichidan
+ANSWER: C
+
+164. [Nazariy] `protected` a’zoga odatda kim murojaat qilishi mumkin?
+A. Faqat main
+B. Faqat cout
+C. Istalgan tashqi funksiya
+D. Sinf a’zolari, do‘stlari va mos hosila sinf a’zolari
+ANSWER: D
+
+165. [Nazariy] `class` ichida standart kirish darajasi qaysi?
+A. public
+B. private
+C. friend
+D. protected
+ANSWER: B
+
+166. [Nazariy] `struct` ichida standart kirish darajasi qaysi?
+A. static
+B. protected
+C. public
+D. private
+ANSWER: C
+
+167. [Nazariy] Getter metodining vazifasi nima?
+A. Sinfni meroslash
+B. Maydonni majburiy o‘chirish
+C. Maydon qiymatini nazoratli o‘qib berish
+D. Virtual jadval yaratish
+ANSWER: C
+
+168. [Nazariy] Setter metodining vazifasi nima?
+A. Destruktor chaqirish
+B. Sinf nomini o‘zgartirish
+C. Maydon qiymatini qoidalar asosida yangilash
+D. Yangi namespace ochish
+ANSWER: C
+
+169. [Nazariy] Nima uchun maydonlar ko‘pincha private qilinadi?
+A. Invariantlarni va holatga kirishni nazorat qilish uchun
+B. Kodni kompilyatsiyadan yashirish uchun
+C. Obyekt yaratishni taqiqlash uchun
+D. Faqat tezlikni oshirish uchun
+ANSWER: A
+
+170. [Nazariy] `friend` funksiya e’loni nimaga ruxsat beradi?
+A. Belgilangan nostatik funksiyaga sinfning private/protected a’zolariga kirishga
+B. Funksiyani avtomatik virtual qilishga
+C. Barcha sinflarga avtomatik kirishga
+D. Funksiyani sinf a’zosiga aylantirishga
+ANSWER: A
+
+171. [Nazariy] `friend` funksiya avtomatik sinf a’zosimi?
+A. Ha, doim virtual a’zo
+B. Yo‘q, do‘stlik kirish huquqini beradi, a’zolikni emas
+C. Ha, doim static a’zo
+D. Ha, doim a’zo
+ANSWER: B
+
+172. [Nazariy] Do‘stlik (friendship) voris sinflarga avtomatik o‘tadimi?
+A. Faqat public vorislikda
+B. Yo‘q
+C. Faqat protected vorislikda
+D. Ha, har doim
+ANSWER: B
+
+173. [Nazariy] Do‘stlik munosabati o‘zaro avtomatik amal qiladimi?
+A. Faqat bir xil nomda
+B. Faqat struct da
+C. Ha, har doim
+D. Yo‘q
+ANSWER: D
+
+174. [Nazariy] `private:` dan keyingi e’lonlarga nima ta’sir qiladi?
+A. Faqat keyingi bir qatorga
+B. Keyingi kirish spetsifikatorigacha private bo‘ladi
+C. Butun dasturga
+D. Faqat konstruktorlarga
+ANSWER: B
+
+175. [Nazariy] Bir sinfda `public:` necha marta yozilishi mumkin?
+A. Faqat bir marta
+B. Faqat ikki marta
+C. Umuman mumkin emas
+D. Bir necha marta
+ANSWER: D
+
+176. [Nazariy] Private maydon qiymatini public getter orqali olish nimaga misol?
+A. Boshqariladigan interfeysga
+B. Kirishni butunlay taqiqlashga
+C. Ko‘p martalik vorislikka
+D. Faqat dinamik bog‘lanishga
+ANSWER: A
+
+177. [Nazariy] `const` getter qaysi afzallikni beradi?
+A. Majburiy virtual bo‘ladi
+B. Avtomatik setter bo‘ladi
+C. const obyektlar uchun ham chaqirilishi mumkin
+D. Obyektni o‘chiradi
+ANSWER: C
+
+178. [Nazariy] Sinf invariantiga eng yaxshi misol qaysi?
+A. Kompilyator versiyasi
+B. Balans qiymatining manfiy bo‘lmasligi kabi doim saqlanishi talab etiladigan shart
+C. Fayl kengaytmasi
+D. Metod nomining uzunligi
+ANSWER: B
+
+179. [Nazariy] `public` interfeys va `private` realizatsiya ajratilishi nimani osonlashtiradi?
+A. Ichki bajarilishni tashqi kodni o‘zgartirmasdan yangilashni
+B. Private maydonni tashqaridan erkin yozishni
+C. Barcha metodlarni global qilishni
+D. Kompilyatorsiz ishlashni
+ANSWER: A
+
+180. [Nazariy] Tashqi funksiya `A a; a.x=2;` yozsa, x private bo‘lganda nima bo‘ladi?
+A. Dastur x ni nol qiladi
+B. Kirish huquqi xatosi yuz beradi
+C. x static bo‘ladi
+D. x avtomatik public bo‘ladi
+ANSWER: B
+
+181. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{private:int x=2;public:int get()const{return x;}};
+int main(){A a;cout<<a.get();}
+A. 4
+B. 3
+C. 1
+D. 2
+ANSWER: D
+
+182. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{private:int x=3;public:int get()const{return x;}};
+int main(){A a;cout<<a.get();}
+A. 2
+B. 4
+C. 3
+D. 5
+ANSWER: C
+
+183. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{private:int x=4;public:int get()const{return x;}};
+int main(){A a;cout<<a.get();}
+A. 6
+B. 3
+C. 5
+D. 4
+ANSWER: D
+
+184. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{private:int x=5;public:int get()const{return x;}};
+int main(){A a;cout<<a.get();}
+A. 5
+B. 6
+C. 7
+D. 4
+ANSWER: A
+
+185. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{private:int x=6;public:int get()const{return x;}};
+int main(){A a;cout<<a.get();}
+A. 7
+B. 8
+C. 6
+D. 5
+ANSWER: C
+
+186. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{int x=0;public:void set(int v){x=v;}int get()const{return x;}};
+int main(){A a;a.set(2);cout<<a.get();}
+A. 1
+B. 3
+C. 2
+D. 4
+ANSWER: C
+
+187. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{int x=0;public:void set(int v){x=v;}int get()const{return x;}};
+int main(){A a;a.set(3);cout<<a.get();}
+A. 5
+B. 4
+C. 3
+D. 2
+ANSWER: C
+
+188. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{int x=0;public:void set(int v){x=v;}int get()const{return x;}};
+int main(){A a;a.set(4);cout<<a.get();}
+A. 4
+B. 6
+C. 5
+D. 3
+ANSWER: A
+
+189. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{int x=0;public:void set(int v){x=v;}int get()const{return x;}};
+int main(){A a;a.set(5);cout<<a.get();}
+A. 6
+B. 4
+C. 5
+D. 7
+ANSWER: C
+
+190. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{int x=0;public:void set(int v){x=v;}int get()const{return x;}};
+int main(){A a;a.set(6);cout<<a.get();}
+A. 6
+B. 5
+C. 7
+D. 8
+ANSWER: A
+
+191. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{int x=0;public:void add(int v){x+=v;}int get()const{return x;}};
+int main(){A a;a.add(2);a.add(4);cout<<a.get();}
+A. 5
+B. 6
+C. 8
+D. 7
+ANSWER: B
+
+192. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{int x=0;public:void add(int v){x+=v;}int get()const{return x;}};
+int main(){A a;a.add(3);a.add(5);cout<<a.get();}
+A. 10
+B. 8
+C. 7
+D. 9
+ANSWER: B
+
+193. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{int x=0;public:void add(int v){x+=v;}int get()const{return x;}};
+int main(){A a;a.add(4);a.add(6);cout<<a.get();}
+A. 9
+B. 10
+C. 12
+D. 11
+ANSWER: B
+
+194. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{int x=0;public:void add(int v){x+=v;}int get()const{return x;}};
+int main(){A a;a.add(5);a.add(7);cout<<a.get();}
+A. 11
+B. 13
+C. 12
+D. 14
+ANSWER: C
+
+195. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{int x=0;public:void add(int v){x+=v;}int get()const{return x;}};
+int main(){A a;a.add(6);a.add(8);cout<<a.get();}
+A. 14
+B. 13
+C. 15
+D. 16
+ANSWER: A
+
+196. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{int x=2;public:friend int read(const A& a){return a.x;}};
+int main(){A a;cout<<read(a);}
+A. 1
+B. 3
+C. 2
+D. 4
+ANSWER: C
+
+197. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{int x=3;public:friend int read(const A& a){return a.x;}};
+int main(){A a;cout<<read(a);}
+A. 4
+B. 5
+C. 2
+D. 3
+ANSWER: D
+
+198. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{int x=4;public:friend int read(const A& a){return a.x;}};
+int main(){A a;cout<<read(a);}
+A. 6
+B. 5
+C. 3
+D. 4
+ANSWER: D
+
+199. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{int x=5;public:friend int read(const A& a){return a.x;}};
+int main(){A a;cout<<read(a);}
+A. 6
+B. 4
+C. 7
+D. 5
+ANSWER: D
+
+200. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{int x=6;public:friend int read(const A& a){return a.x;}};
+int main(){A a;cout<<read(a);}
+A. 6
+B. 7
+C. 5
+D. 8
+ANSWER: A
+
+201. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{protected:int x=2;};
+class B:public A{public:int get()const{return x;}};
+int main(){B b;cout<<b.get();}
+A. 3
+B. 2
+C. 4
+D. 1
+ANSWER: B
+
+202. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{protected:int x=3;};
+class B:public A{public:int get()const{return x;}};
+int main(){B b;cout<<b.get();}
+A. 4
+B. 2
+C. 5
+D. 3
+ANSWER: D
+
+203. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{protected:int x=4;};
+class B:public A{public:int get()const{return x;}};
+int main(){B b;cout<<b.get();}
+A. 4
+B. 6
+C. 3
+D. 5
+ANSWER: A
+
+204. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{protected:int x=5;};
+class B:public A{public:int get()const{return x;}};
+int main(){B b;cout<<b.get();}
+A. 5
+B. 7
+C. 4
+D. 6
+ANSWER: A
+
+205. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{protected:int x=6;};
+class B:public A{public:int get()const{return x;}};
+int main(){B b;cout<<b.get();}
+A. 6
+B. 8
+C. 7
+D. 5
+ANSWER: A
+
+206. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{private:int x=2;public:int get()const{return x;}};
+class B:public A{public:int twice()const{return 2*get();}};
+int main(){B b;cout<<b.twice();}
+A. 3
+B. 4
+C. 5
+D. 6
+ANSWER: B
+
+207. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{private:int x=3;public:int get()const{return x;}};
+class B:public A{public:int twice()const{return 2*get();}};
+int main(){B b;cout<<b.twice();}
+A. 6
+B. 7
+C. 5
+D. 8
+ANSWER: A
+
+208. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{private:int x=4;public:int get()const{return x;}};
+class B:public A{public:int twice()const{return 2*get();}};
+int main(){B b;cout<<b.twice();}
+A. 7
+B. 9
+C. 8
+D. 10
+ANSWER: C
+
+209. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{private:int x=5;public:int get()const{return x;}};
+class B:public A{public:int twice()const{return 2*get();}};
+int main(){B b;cout<<b.twice();}
+A. 10
+B. 11
+C. 12
+D. 9
+ANSWER: A
+
+210. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{private:int x=6;public:int get()const{return x;}};
+class B:public A{public:int twice()const{return 2*get();}};
+int main(){B b;cout<<b.twice();}
+A. 14
+B. 11
+C. 13
+D. 12
+ANSWER: D
+
+211. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{int x=0;public:void set(int v){if(v>=0)x=v;}int get()const{return x;}};
+int main(){A a;a.set(-2);cout<<a.get();}
+A. 0
+B. -1
+C. 2
+D. 1
+ANSWER: A
+
+212. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{int x=0;public:void set(int v){if(v>=0)x=v;}int get()const{return x;}};
+int main(){A a;a.set(-3);cout<<a.get();}
+A. -1
+B. 2
+C. 0
+D. 1
+ANSWER: C
+
+213. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{int x=0;public:void set(int v){if(v>=0)x=v;}int get()const{return x;}};
+int main(){A a;a.set(-4);cout<<a.get();}
+A. 0
+B. 2
+C. 1
+D. -1
+ANSWER: A
+
+214. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{int x=0;public:void set(int v){if(v>=0)x=v;}int get()const{return x;}};
+int main(){A a;a.set(-5);cout<<a.get();}
+A. 0
+B. -1
+C. 2
+D. 1
+ANSWER: A
+
+215. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{int x=0;public:void set(int v){if(v>=0)x=v;}int get()const{return x;}};
+int main(){A a;a.set(-6);cout<<a.get();}
+A. 2
+B. 1
+C. 0
+D. -1
+ANSWER: C
+
+216. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{int x=0;public:void set(int v){if(v>=0)x=v;}int get()const{return x;}};
+int main(){A a;a.set(2);a.set(-1);cout<<a.get();}
+A. 4
+B. 2
+C. 1
+D. 3
+ANSWER: B
+
+217. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{int x=0;public:void set(int v){if(v>=0)x=v;}int get()const{return x;}};
+int main(){A a;a.set(3);a.set(-1);cout<<a.get();}
+A. 4
+B. 2
+C. 5
+D. 3
+ANSWER: D
+
+218. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{int x=0;public:void set(int v){if(v>=0)x=v;}int get()const{return x;}};
+int main(){A a;a.set(4);a.set(-1);cout<<a.get();}
+A. 5
+B. 4
+C. 6
+D. 3
+ANSWER: B
+
+219. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{int x=0;public:void set(int v){if(v>=0)x=v;}int get()const{return x;}};
+int main(){A a;a.set(5);a.set(-1);cout<<a.get();}
+A. 6
+B. 5
+C. 7
+D. 4
+ANSWER: B
+
+220. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{int x=0;public:void set(int v){if(v>=0)x=v;}int get()const{return x;}};
+int main(){A a;a.set(6);a.set(-1);cout<<a.get();}
+A. 6
+B. 7
+C. 5
+D. 8
+ANSWER: A
+
+221. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:int x=2;private:int y=4;public:int sum()const{return x+y;}};
+int main(){A a;cout<<a.sum();}
+A. 7
+B. 5
+C. 8
+D. 6
+ANSWER: D
+
+222. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:int x=3;private:int y=5;public:int sum()const{return x+y;}};
+int main(){A a;cout<<a.sum();}
+A. 10
+B. 8
+C. 7
+D. 9
+ANSWER: B
+
+223. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:int x=4;private:int y=6;public:int sum()const{return x+y;}};
+int main(){A a;cout<<a.sum();}
+A. 10
+B. 12
+C. 9
+D. 11
+ANSWER: A
+
+224. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:int x=5;private:int y=7;public:int sum()const{return x+y;}};
+int main(){A a;cout<<a.sum();}
+A. 13
+B. 14
+C. 11
+D. 12
+ANSWER: D
+
+225. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:int x=6;private:int y=8;public:int sum()const{return x+y;}};
+int main(){A a;cout<<a.sum();}
+A. 13
+B. 14
+C. 16
+D. 15
+ANSWER: B
+
+226. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+struct A{private:int x=2;public:int get()const{return x;}};
+int main(){A a;cout<<a.get()+1;}
+A. 2
+B. 5
+C. 4
+D. 3
+ANSWER: D
+
+227. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+struct A{private:int x=3;public:int get()const{return x;}};
+int main(){A a;cout<<a.get()+1;}
+A. 5
+B. 6
+C. 4
+D. 3
+ANSWER: C
+
+228. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+struct A{private:int x=4;public:int get()const{return x;}};
+int main(){A a;cout<<a.get()+1;}
+A. 7
+B. 6
+C. 4
+D. 5
+ANSWER: D
+
+229. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+struct A{private:int x=5;public:int get()const{return x;}};
+int main(){A a;cout<<a.get()+1;}
+A. 5
+B. 6
+C. 8
+D. 7
+ANSWER: B
+
+230. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+struct A{private:int x=6;public:int get()const{return x;}};
+int main(){A a;cout<<a.get()+1;}
+A. 9
+B. 8
+C. 6
+D. 7
+ANSWER: D
+
+231. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{int x=2;public:int f()const{return x*x;}};
+int main(){const A a;cout<<a.f();}
+A. 4
+B. 3
+C. 6
+D. 5
+ANSWER: A
+
+232. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{int x=3;public:int f()const{return x*x;}};
+int main(){const A a;cout<<a.f();}
+A. 11
+B. 9
+C. 8
+D. 10
+ANSWER: B
+
+233. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{int x=4;public:int f()const{return x*x;}};
+int main(){const A a;cout<<a.f();}
+A. 15
+B. 17
+C. 16
+D. 18
+ANSWER: C
+
+234. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{int x=5;public:int f()const{return x*x;}};
+int main(){const A a;cout<<a.f();}
+A. 25
+B. 27
+C. 24
+D. 26
+ANSWER: A
+
+235. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{int x=6;public:int f()const{return x*x;}};
+int main(){const A a;cout<<a.f();}
+A. 37
+B. 38
+C. 36
+D. 35
+ANSWER: C
+
+236. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{private:int x=2;public:void inc(){++x;}int get()const{return x;}};
+int main(){A a;a.inc();cout<<a.get();}
+A. 5
+B. 2
+C. 3
+D. 4
+ANSWER: C
+
+237. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{private:int x=3;public:void inc(){++x;}int get()const{return x;}};
+int main(){A a;a.inc();cout<<a.get();}
+A. 4
+B. 5
+C. 3
+D. 6
+ANSWER: A
+
+238. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{private:int x=4;public:void inc(){++x;}int get()const{return x;}};
+int main(){A a;a.inc();cout<<a.get();}
+A. 4
+B. 5
+C. 6
+D. 7
+ANSWER: B
+
+239. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{private:int x=5;public:void inc(){++x;}int get()const{return x;}};
+int main(){A a;a.inc();cout<<a.get();}
+A. 8
+B. 5
+C. 6
+D. 7
+ANSWER: C
+
+240. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{private:int x=6;public:void inc(){++x;}int get()const{return x;}};
+int main(){A a;a.inc();cout<<a.get();}
+A. 6
+B. 8
+C. 9
+D. 7
+ANSWER: D

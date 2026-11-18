@@ -1,0 +1,882 @@
+﻿OYD TESTLARI — 04 Vorislik turlari
+Standart: C++. Savollar soni: 80 (20 nazariy, 60 kodli).
+
+241. [Nazariy] C++ da vorislik nima?
+A. Faqat funksiyani qayta yuklash
+B. Obyektning xotirasini avtomatik ko‘paytirish
+C. Namespace yaratish
+D. Mavjud bazaviy sinfdan hosila sinfni aniqlash mexanizmi
+ANSWER: D
+
+242. [Nazariy] `class B : public A { };` nimani bildiradi?
+A. A sinfi B dan voris oladi
+B. B abstrakt sinf
+C. B sinfi A dan public voris oladi
+D. A B ning obyekti
+ANSWER: C
+
+243. [Nazariy] Public vorislikda bazaviy public a’zo hosila sinfda qanday kirishga ega?
+A. public
+B. friend
+C. protected
+D. private
+ANSWER: A
+
+244. [Nazariy] Public vorislikda bazaviy protected a’zo hosila sinfda qanday kirishga ega?
+A. static
+B. public
+C. private
+D. protected
+ANSWER: D
+
+245. [Nazariy] Private vorislikda bazaviy public a’zo hosila sinfda qanday kirishga ega?
+A. protected
+B. public
+C. virtual
+D. private
+ANSWER: D
+
+246. [Nazariy] Protected vorislikda bazaviy public a’zo hosila sinfda qanday kirishga ega?
+A. protected
+B. static
+C. public
+D. private
+ANSWER: A
+
+247. [Nazariy] Bazaviy private a’zoga hosila sinf metodi bevosita kira oladimi?
+A. Faqat inline bo‘lsa ha
+B. Yo‘q, bazaviy sinfning ochiq/himoyalangan interfeysi orqali foydalanishi mumkin
+C. Faqat public vorislikda ha
+D. Ha, doim
+ANSWER: B
+
+248. [Nazariy] C++ `class B : A` e’lonida standart vorislik turi qaysi?
+A. private
+B. protected
+C. virtual
+D. public
+ANSWER: A
+
+249. [Nazariy] C++ `struct B : A` e’lonida standart vorislik turi qaysi?
+A. protected
+B. private
+C. friend
+D. public
+ANSWER: D
+
+250. [Nazariy] Bitta bazaviy sinfdan bir nechta hosila sinf chiqishi nima?
+A. Faqat polimorfizm
+B. Faqat kompozitsiya
+C. Faqat ko‘p martalik vorislik
+D. Ierarxik vorislik
+ANSWER: D
+
+251. [Nazariy] Bitta sinf ikki bazaviy sinfdan voris olsa nima deyiladi?
+A. Abstraksiya
+B. Getter
+C. Bir darajali vorislik
+D. Ko‘p martalik vorislik
+ANSWER: D
+
+252. [Nazariy] A dan B, B dan C voris olsa qanday tuzilma?
+A. Ko‘p bosqichli vorislik
+B. Faqat inkapsulyatsiya
+C. Do‘stlik
+D. Bir darajali vorislik
+ANSWER: A
+
+253. [Nazariy] B bitta A dan voris olsa qanday tuzilma?
+A. Bir darajali vorislik
+B. Ko‘p martalik vorislik
+C. Parametrik polimorfizm
+D. Gibrid vorislik
+ANSWER: A
+
+254. [Nazariy] Turli vorislik shakllari birlashtirilsa qanday ataladi?
+A. Operator
+B. Konstruktor
+C. Gibrid vorislik
+D. Statik maydon
+ANSWER: C
+
+255. [Nazariy] Romb (diamond) muammosini umumiy A bazaviy qismiga nisbatan nima hal qiladi?
+A. Virtual vorislik
+B. Faqat overload
+C. Faqat getter
+D. Faqat include
+ANSWER: A
+
+256. [Nazariy] `class B : virtual public A` da `virtual` nimaga tegishli?
+A. Bazaviy A qismini virtual voris olishga
+B. A ni private qilishga
+C. B ning hamma metodiga
+D. B konstruktorini virtual qilishga
+ANSWER: A
+
+257. [Nazariy] Hosila sinf obyekti yaratilganda qaysi konstruktor birinchi ishlaydi?
+A. Hosila destruktori
+B. Bazaviy sinf konstruktori
+C. main destruktori
+D. Hosila sinf konstruktori
+ANSWER: B
+
+258. [Nazariy] Hosila sinfdagi bir xil nomli metod bazaviy nomni yashirishi mumkinmi?
+A. Faqat private vorislikda
+B. Faqat static bo‘lsa
+C. Yo‘q, umuman mumkin emas
+D. Ha
+ANSWER: D
+
+259. [Nazariy] `using A::f;` ni hosila sinfda yozishdan maqsad nima?
+A. B ni virtual qilish
+B. A ni abstrakt qilish
+C. Bazaviy sinfning f nomli overloadlarini qamrovga kiritish
+D. A sinfini o‘chirish
+ANSWER: C
+
+260. [Nazariy] Public vorislikni modellashtiruvchi munosabat qaysi?
+A. «B A ni kompilyatsiya qiladi»
+B. «B — A ning bir turi» (is-a)
+C. «B A ga egalik qiladi» (has-a)
+D. «B A faylini ochadi»
+ANSWER: B
+
+261. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:int x=2;};
+class B:public A{};
+int main(){B b;cout<<b.x;}
+A. 1
+B. 2
+C. 3
+D. 4
+ANSWER: B
+
+262. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:int x=3;};
+class B:public A{};
+int main(){B b;cout<<b.x;}
+A. 5
+B. 2
+C. 3
+D. 4
+ANSWER: C
+
+263. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:int x=4;};
+class B:public A{};
+int main(){B b;cout<<b.x;}
+A. 4
+B. 3
+C. 6
+D. 5
+ANSWER: A
+
+264. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:int x=5;};
+class B:public A{};
+int main(){B b;cout<<b.x;}
+A. 5
+B. 7
+C. 6
+D. 4
+ANSWER: A
+
+265. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:int x=6;};
+class B:public A{};
+int main(){B b;cout<<b.x;}
+A. 5
+B. 6
+C. 7
+D. 8
+ANSWER: B
+
+266. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{protected:int x=2;};
+class B:public A{public:int get(){return x;}};
+int main(){B b;cout<<b.get();}
+A. 3
+B. 2
+C. 1
+D. 4
+ANSWER: B
+
+267. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{protected:int x=3;};
+class B:public A{public:int get(){return x;}};
+int main(){B b;cout<<b.get();}
+A. 4
+B. 3
+C. 5
+D. 2
+ANSWER: B
+
+268. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{protected:int x=4;};
+class B:public A{public:int get(){return x;}};
+int main(){B b;cout<<b.get();}
+A. 3
+B. 5
+C. 6
+D. 4
+ANSWER: D
+
+269. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{protected:int x=5;};
+class B:public A{public:int get(){return x;}};
+int main(){B b;cout<<b.get();}
+A. 5
+B. 4
+C. 7
+D. 6
+ANSWER: A
+
+270. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{protected:int x=6;};
+class B:public A{public:int get(){return x;}};
+int main(){B b;cout<<b.get();}
+A. 7
+B. 8
+C. 5
+D. 6
+ANSWER: D
+
+271. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:int f(){return 2;}};
+class B:public A{public:int g(){return f()+1;}};
+int main(){B b;cout<<b.g();}
+A. 4
+B. 2
+C. 3
+D. 5
+ANSWER: C
+
+272. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:int f(){return 3;}};
+class B:public A{public:int g(){return f()+1;}};
+int main(){B b;cout<<b.g();}
+A. 3
+B. 4
+C. 5
+D. 6
+ANSWER: B
+
+273. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:int f(){return 4;}};
+class B:public A{public:int g(){return f()+1;}};
+int main(){B b;cout<<b.g();}
+A. 7
+B. 4
+C. 6
+D. 5
+ANSWER: D
+
+274. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:int f(){return 5;}};
+class B:public A{public:int g(){return f()+1;}};
+int main(){B b;cout<<b.g();}
+A. 5
+B. 7
+C. 6
+D. 8
+ANSWER: C
+
+275. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:int f(){return 6;}};
+class B:public A{public:int g(){return f()+1;}};
+int main(){B b;cout<<b.g();}
+A. 6
+B. 7
+C. 8
+D. 9
+ANSWER: B
+
+276. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:A(){cout<<"A";}};
+class B:public A{public:B(){cout<<"B";}};
+int main(){B b;cout<<2;}
+A. AB2B
+B. AB2A
+C. 2BA
+D. AB2
+ANSWER: D
+
+277. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:A(){cout<<"A";}};
+class B:public A{public:B(){cout<<"B";}};
+int main(){B b;cout<<3;}
+A. AB3A
+B. 3BA
+C. AB3
+D. AB3B
+ANSWER: C
+
+278. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:A(){cout<<"A";}};
+class B:public A{public:B(){cout<<"B";}};
+int main(){B b;cout<<4;}
+A. AB4B
+B. AB4
+C. AB4A
+D. 4BA
+ANSWER: B
+
+279. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:A(){cout<<"A";}};
+class B:public A{public:B(){cout<<"B";}};
+int main(){B b;cout<<5;}
+A. AB5
+B. AB5B
+C. 5BA
+D. AB5A
+ANSWER: A
+
+280. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:A(){cout<<"A";}};
+class B:public A{public:B(){cout<<"B";}};
+int main(){B b;cout<<6;}
+A. 6BA
+B. AB6A
+C. AB6B
+D. AB6
+ANSWER: D
+
+281. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:~A(){cout<<"A";}};
+class B:public A{public:~B(){cout<<"B";}};
+int main(){B b;cout<<2;}
+A. 2BAA
+B. 2BAB
+C. AB2
+D. 2BA
+ANSWER: D
+
+282. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:~A(){cout<<"A";}};
+class B:public A{public:~B(){cout<<"B";}};
+int main(){B b;cout<<3;}
+A. 3BA
+B. 3BAA
+C. AB3
+D. 3BAB
+ANSWER: A
+
+283. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:~A(){cout<<"A";}};
+class B:public A{public:~B(){cout<<"B";}};
+int main(){B b;cout<<4;}
+A. AB4
+B. 4BAB
+C. 4BAA
+D. 4BA
+ANSWER: D
+
+284. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:~A(){cout<<"A";}};
+class B:public A{public:~B(){cout<<"B";}};
+int main(){B b;cout<<5;}
+A. 5BAA
+B. AB5
+C. 5BAB
+D. 5BA
+ANSWER: D
+
+285. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:~A(){cout<<"A";}};
+class B:public A{public:~B(){cout<<"B";}};
+int main(){B b;cout<<6;}
+A. AB6
+B. 6BAB
+C. 6BA
+D. 6BAA
+ANSWER: C
+
+286. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:int x=2;};
+class B:private A{public:int get(){return x;}};
+int main(){B b;cout<<b.get();}
+A. 3
+B. 4
+C. 2
+D. 1
+ANSWER: C
+
+287. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:int x=3;};
+class B:private A{public:int get(){return x;}};
+int main(){B b;cout<<b.get();}
+A. 3
+B. 2
+C. 4
+D. 5
+ANSWER: A
+
+288. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:int x=4;};
+class B:private A{public:int get(){return x;}};
+int main(){B b;cout<<b.get();}
+A. 3
+B. 4
+C. 5
+D. 6
+ANSWER: B
+
+289. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:int x=5;};
+class B:private A{public:int get(){return x;}};
+int main(){B b;cout<<b.get();}
+A. 5
+B. 7
+C. 4
+D. 6
+ANSWER: A
+
+290. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:int x=6;};
+class B:private A{public:int get(){return x;}};
+int main(){B b;cout<<b.get();}
+A. 6
+B. 8
+C. 5
+D. 7
+ANSWER: A
+
+291. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:int x=2;};
+class B:protected A{public:int get(){return x+1;}};
+int main(){B b;cout<<b.get();}
+A. 5
+B. 3
+C. 2
+D. 4
+ANSWER: B
+
+292. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:int x=3;};
+class B:protected A{public:int get(){return x+1;}};
+int main(){B b;cout<<b.get();}
+A. 5
+B. 3
+C. 6
+D. 4
+ANSWER: D
+
+293. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:int x=4;};
+class B:protected A{public:int get(){return x+1;}};
+int main(){B b;cout<<b.get();}
+A. 4
+B. 5
+C. 6
+D. 7
+ANSWER: B
+
+294. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:int x=5;};
+class B:protected A{public:int get(){return x+1;}};
+int main(){B b;cout<<b.get();}
+A. 7
+B. 8
+C. 5
+D. 6
+ANSWER: D
+
+295. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:int x=6;};
+class B:protected A{public:int get(){return x+1;}};
+int main(){B b;cout<<b.get();}
+A. 8
+B. 7
+C. 6
+D. 9
+ANSWER: B
+
+296. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:int a=2;};
+class C{public:int c=4;};
+class B:public A,public C{};
+int main(){B b;cout<<b.a+b.c;}
+A. 8
+B. 6
+C. 5
+D. 7
+ANSWER: B
+
+297. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:int a=3;};
+class C{public:int c=5;};
+class B:public A,public C{};
+int main(){B b;cout<<b.a+b.c;}
+A. 7
+B. 9
+C. 8
+D. 10
+ANSWER: C
+
+298. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:int a=4;};
+class C{public:int c=6;};
+class B:public A,public C{};
+int main(){B b;cout<<b.a+b.c;}
+A. 12
+B. 9
+C. 10
+D. 11
+ANSWER: C
+
+299. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:int a=5;};
+class C{public:int c=7;};
+class B:public A,public C{};
+int main(){B b;cout<<b.a+b.c;}
+A. 11
+B. 12
+C. 14
+D. 13
+ANSWER: B
+
+300. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:int a=6;};
+class C{public:int c=8;};
+class B:public A,public C{};
+int main(){B b;cout<<b.a+b.c;}
+A. 15
+B. 16
+C. 14
+D. 13
+ANSWER: C
+
+301. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:int f(){return 2;}};
+class B:public A{};
+class C:public B{};
+int main(){C c;cout<<c.f();}
+A. 3
+B. 2
+C. 1
+D. 4
+ANSWER: B
+
+302. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:int f(){return 3;}};
+class B:public A{};
+class C:public B{};
+int main(){C c;cout<<c.f();}
+A. 4
+B. 2
+C. 5
+D. 3
+ANSWER: D
+
+303. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:int f(){return 4;}};
+class B:public A{};
+class C:public B{};
+int main(){C c;cout<<c.f();}
+A. 6
+B. 5
+C. 4
+D. 3
+ANSWER: C
+
+304. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:int f(){return 5;}};
+class B:public A{};
+class C:public B{};
+int main(){C c;cout<<c.f();}
+A. 4
+B. 6
+C. 5
+D. 7
+ANSWER: C
+
+305. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:int f(){return 6;}};
+class B:public A{};
+class C:public B{};
+int main(){C c;cout<<c.f();}
+A. 6
+B. 5
+C. 8
+D. 7
+ANSWER: A
+
+306. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:int x=2;};
+class B:virtual public A{};
+class C:virtual public A{};
+class D:public B,public C{};
+int main(){D d;cout<<d.x;}
+A. 3
+B. 4
+C. 1
+D. 2
+ANSWER: D
+
+307. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:int x=3;};
+class B:virtual public A{};
+class C:virtual public A{};
+class D:public B,public C{};
+int main(){D d;cout<<d.x;}
+A. 5
+B. 2
+C. 4
+D. 3
+ANSWER: D
+
+308. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:int x=4;};
+class B:virtual public A{};
+class C:virtual public A{};
+class D:public B,public C{};
+int main(){D d;cout<<d.x;}
+A. 5
+B. 6
+C. 4
+D. 3
+ANSWER: C
+
+309. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:int x=5;};
+class B:virtual public A{};
+class C:virtual public A{};
+class D:public B,public C{};
+int main(){D d;cout<<d.x;}
+A. 7
+B. 5
+C. 6
+D. 4
+ANSWER: B
+
+310. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:int x=6;};
+class B:virtual public A{};
+class C:virtual public A{};
+class D:public B,public C{};
+int main(){D d;cout<<d.x;}
+A. 5
+B. 8
+C. 7
+D. 6
+ANSWER: D
+
+311. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:int f(int x){return x+2;}};
+class B:public A{public:using A::f;int f(){return 4;}};
+int main(){B b;cout<<b.f(1);}
+A. 3
+B. 5
+C. 4
+D. 2
+ANSWER: A
+
+312. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:int f(int x){return x+3;}};
+class B:public A{public:using A::f;int f(){return 5;}};
+int main(){B b;cout<<b.f(1);}
+A. 5
+B. 4
+C. 6
+D. 3
+ANSWER: B
+
+313. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:int f(int x){return x+4;}};
+class B:public A{public:using A::f;int f(){return 6;}};
+int main(){B b;cout<<b.f(1);}
+A. 4
+B. 7
+C. 5
+D. 6
+ANSWER: C
+
+314. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:int f(int x){return x+5;}};
+class B:public A{public:using A::f;int f(){return 7;}};
+int main(){B b;cout<<b.f(1);}
+A. 6
+B. 7
+C. 8
+D. 5
+ANSWER: A
+
+315. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:int f(int x){return x+6;}};
+class B:public A{public:using A::f;int f(){return 8;}};
+int main(){B b;cout<<b.f(1);}
+A. 6
+B. 9
+C. 8
+D. 7
+ANSWER: D
+
+316. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:int x=2;};
+class B:public A{public:int y=4;};
+int main(){B b;A& a=b;cout<<a.x;}
+A. 1
+B. 4
+C. 3
+D. 2
+ANSWER: D
+
+317. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:int x=3;};
+class B:public A{public:int y=5;};
+int main(){B b;A& a=b;cout<<a.x;}
+A. 4
+B. 2
+C. 5
+D. 3
+ANSWER: D
+
+318. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:int x=4;};
+class B:public A{public:int y=6;};
+int main(){B b;A& a=b;cout<<a.x;}
+A. 5
+B. 6
+C. 3
+D. 4
+ANSWER: D
+
+319. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:int x=5;};
+class B:public A{public:int y=7;};
+int main(){B b;A& a=b;cout<<a.x;}
+A. 6
+B. 4
+C. 7
+D. 5
+ANSWER: D
+
+320. [Kod natijasi] Quyidagi C++ dasturining ekranga chiqaradigan natijasi qanday?
+#include <iostream>
+using namespace std;
+class A{public:int x=6;};
+class B:public A{public:int y=8;};
+int main(){B b;A& a=b;cout<<a.x;}
+A. 7
+B. 5
+C. 6
+D. 8
+ANSWER: C
