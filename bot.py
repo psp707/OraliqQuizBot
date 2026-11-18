@@ -15,7 +15,7 @@ from aiogram.fsm.storage.memory import MemoryStorage
 # ================= SOZLAMALAR =================
 BOT_TOKEN = os.environ.get("BOT_TOKEN")
 ADMIN_ID = int(os.environ.get("ADMIN_ID", 0))
-QUIZ_TIME = 15
+QUIZ_TIME = 30
 PM_BLOCK_SIZE = 30      # Shaxsiy chatda har 30 ta savolda blok natijasi
 GROUP_BLOCK_SIZE = 39   # Guruhda har 39 ta savolda reyting
 
