@@ -7,7 +7,8 @@ from datetime import datetime
 from aiogram import Bot, Dispatcher, Router, F
 from aiogram.filters import Command
 from aiogram.types import (Message, CallbackQuery, PollAnswer,
-                           InlineKeyboardMarkup, InlineKeyboardButton, BotCommand)
+                           InlineKeyboardMarkup, InlineKeyboardButton, BotCommand,
+                           BotCommandScopePrivate, BotCommandScopeAllGroupChats)
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
 from aiogram.fsm.storage.memory import MemoryStorage
@@ -16,10 +17,10 @@ from aiogram.fsm.storage.memory import MemoryStorage
 BOT_TOKEN = os.environ.get("BOT_TOKEN")
 ADMIN_ID = int(os.environ.get("ADMIN_ID", 0))
 QUIZ_TIME = 30
-PM_BLOCK_SIZE = 30      # Shaxsiy chatda har 30 ta savolda blok natijasi
-GROUP_BLOCK_SIZE = 39   # Guruhda har 39 ta savolda reyting
+PM_BLOCK_SIZE = 30
+GROUP_BLOCK_SIZE = 30
 
-# YANGI TUZILMA: Fanlar va ularning mavzulari
+# ================= FANLAR VA MAVZULAR =================
 SUBJECTS = {
     "WEB": {
         "title": "💻 WEB DASTURLASH",
@@ -36,7 +37,7 @@ SUBJECTS = {
         "topics": [
             ("01_OYD_asoslari_sinf_obyekt.txt", "01. Sinf va obyekt asoslari"),
             ("02_Konstruktor_destruktor.txt", "02. Konstruktor va destruktor"),
-            ("03_Inkapsulyatsiya_modifikatorlar.txt", "03. Inkapsulyatsiya va modifikatorlar"),
+            ("03_Inkapsulyatsiya_modifikatorlar.txt", "03. Inkapsulyatsiya"),
             ("04_Vorislik_turlari.txt", "04. Vorislik turlari"),
         ]
     }
@@ -48,48 +49,44 @@ def init_db():
     cursor = conn.cursor()
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS results (
-            user_id INTEGER PRIMARY KEY, username TEXT, full_name TEXT,
-            score INTEGER, total_questions INTEGER, topic TEXT, chat_id INTEGER, date TEXT
+            user_id INTEGER, username TEXT, full_name TEXT,
+            score INTEGER, total_questions INTEGER, topic TEXT, chat_id INTEGER, chat_type TEXT, date TEXT,
+            UNIQUE(user_id, topic, chat_id, chat_type)
         )
     ''')
     conn.commit()
     conn.close()
 
-def save_result(user_id, username, full_name, score, total, topic, chat_id):
+def save_result(user_id, username, full_name, score, total, topic, chat_id, chat_type):
     conn = sqlite3.connect('quiz_results.db')
     cursor = conn.cursor()
     cursor.execute('''
-        REPLACE INTO results (user_id, username, full_name, score, total_questions, topic, chat_id, date)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-    ''', (user_id, username, full_name, score, total, topic, chat_id,
+        INSERT OR REPLACE INTO results (user_id, username, full_name, score, total_questions, topic, chat_id, chat_type, date)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+    ''', (user_id, username, full_name, score, total, topic, chat_id, chat_type,
           datetime.now().strftime("%Y-%m-%d %H:%M")))
     conn.commit()
     conn.close()
 
 init_db()
 
-# ================= SAVOLLARNI O'QISH (IKKI FORMATNI QO'LLAB-QUVVATLAYDI) =================
+# ================= SAVOLLARNI O'QISH =================
 def parse_file(file_name):
     result = []
     if not os.path.exists(file_name):
         print(f"⚠️ {file_name} topilmadi!")
         return result
-    
     with open(file_name, 'r', encoding='utf-8') as f:
         lines = f.readlines()
     
-    # Yangi formatni tekshirish (ANSWER: A)
     is_new_format = any("ANSWER:" in line for line in lines[:30])
     
     if is_new_format:
         current_q = {"text": "", "options": [], "correct": 0}
         in_options = False
-        
         for line in lines:
             s = line.strip()
             if not s: continue
-            
-            # Savol boshi: 001. [Nazariy] Savol matni...
             q_match = re.match(r'^(\d{2,3})\.\s*\[([^\]]+)\]\s*(.*)$', s)
             if q_match:
                 if current_q["text"] and len(current_q["options"]) == 4:
@@ -97,32 +94,22 @@ def parse_file(file_name):
                 current_q = {"text": q_match.group(3).strip(), "options": [], "correct": 0}
                 in_options = False
                 continue
-            
-            # Variantlar: A. ...
             opt_match = re.match(r'^([A-D])\.\s*(.*)$', s, re.IGNORECASE)
             if opt_match:
                 in_options = True
                 current_q["options"].append(opt_match.group(2).strip())
                 continue
-            
-            # Javob: ANSWER: A
             ans_match = re.match(r'^ANSWER:\s*([A-D])$', s, re.IGNORECASE)
             if ans_match:
                 current_q["correct"] = ord(ans_match.group(1).upper()) - ord('A')
                 continue
-            
-            # Agar savol matni bir nechta qatorga cho'zilgan bo'lsa (masalan, kod bloklari)
             if current_q and not in_options and len(current_q["options"]) == 0:
                 current_q["text"] += " " + s
-        
-        # Oxirgi savolni qo'shish
         if current_q["text"] and len(current_q["options"]) == 4:
             result.append(current_q)
-            
-        print(f"  ✅ {file_name} (Yangi format) → {len(result)} ta savol")
+        print(f"  ✅ {file_name} (Yangi) → {len(result)} ta")
         return result
-
-    # ESKI FORMAT uchun zaxira (A), B), C), D), (Javob: A))
+    
     current_question, options, correct_idx = None, [], 0
     for line in lines:
         s = line.strip()
@@ -140,29 +127,25 @@ def parse_file(file_name):
             m = re.search(r'\(Javob:\s*([A-D])\)', s, re.IGNORECASE)
             if m: correct_idx = ord(m.group(1).upper()) - ord('A')
         else:
-            if current_question and not options: 
+            if current_question and not options:
                 current_question += " " + s
-    
     if current_question and len(options) == 4:
         result.append({"text": current_question, "options": options, "correct": correct_idx})
-    
-    print(f"  ✅ {file_name} (Eski format) → {len(result)} ta savol")
+    print(f"  ✅ {file_name} (Eski) → {len(result)} ta")
     return result
 
-# Barcha savollarni yuklash va xotirada saqlash
+# Barcha savollarni yuklash
 questions_db = {}
 total_all_questions = 0
-
 for subj_id, subj_data in SUBJECTS.items():
     questions_db[subj_id] = {"title": subj_data["title"], "topics": {}}
     for file_name, display_name in subj_data["topics"]:
         qs = parse_file(file_name)
         questions_db[subj_id]["topics"][file_name] = {"title": display_name, "questions": qs}
         total_all_questions += len(qs)
+print(f"\n🎯 Jami {total_all_questions} ta savol yuklandi!")
 
-print(f"\n🎯 Jami {total_all_questions} ta savol muvaffaqiyatli yuklandi!")
-
-# ================= BOT SOZLAMALARI =================
+# ================= BOT =================
 bot = Bot(token=BOT_TOKEN)
 dp = Dispatcher(storage=MemoryStorage())
 router = Router()
@@ -172,36 +155,58 @@ class QuizStates(StatesGroup):
     idle = State()
     playing = State()
 
+# Shaxsiy chat sessiyalari
 user_sessions = {}
 
-active_game = {
-    "is_running": False, "chat_id": None, "questions": [], "topic_name": "🎓 Barcha savollar",
-    "current_q": 0, "poll_id": None, "message_id": None,
-    "timer_task": None, "update_timer_task": None,
-    "scores": {}, "participants": set(), "answers": {}
-}
+# Guruh o'yini
+active_games = {}  # chat_id -> game data
 
 async def set_bot_commands():
     private_commands = [
         BotCommand(command="start", description="🚀 Testni boshlash"),
-        BotCommand(command="topics", description="📚 Fanni va mavzuni tanlash"),
+        BotCommand(command="topics", description="📚 Mavzu tanlash"),
         BotCommand(command="progress", description="📊 Joriy natijam"),
         BotCommand(command="stats", description="📈 Shaxsiy statistika"),
-        BotCommand(command="stop", description="⏹ Testni to'xtatish"),
+        BotCommand(command="stop", description="⏹ To'xtatish"),
+        BotCommand(command="help", description="❓ Yordam"),
+    ]
+    group_commands = [
+        BotCommand(command="start", description="🚀 Guruh testini boshlash"),
+        BotCommand(command="quiz", description="🎯 Yangi test boshlash"),
+        BotCommand(command="players", description="👥 Ishtirokchilar"),
+        BotCommand(command="leaderboard", description="🏆 Reyting"),
+        BotCommand(command="stop", description="⏹ To'xtatish (admin)"),
+        BotCommand(command="help", description="❓ Yordam"),
     ]
     try:
-        await bot.set_my_commands(private_commands, scope={"type": "private"})
+        await bot.set_my_commands(private_commands, scope=BotCommandScopePrivate())
+        await bot.set_my_commands(group_commands, scope=BotCommandScopeAllGroupChats())
         print("✅ Command'lar sozlandi!")
     except Exception as e:
-        print(f"⚠️ Command sozlashda xato: {e}")
+        print(f"⚠️ Command xato: {e}")
 
 def get_stop_keyboard():
     return InlineKeyboardMarkup(inline_keyboard=[
         [InlineKeyboardButton(text="⏹ To'xtatish", callback_data="stop_quiz")]
     ])
 
+def get_fan_keyboard():
+    kb = []
+    for subj_id, subj_data in questions_db.items():
+        total_q = sum(len(t["questions"]) for t in subj_data["topics"].values())
+        kb.append([InlineKeyboardButton(text=f"{subj_data['title']} ({total_q})", callback_data=f"subj_{subj_id}")])
+    return InlineKeyboardMarkup(inline_keyboard=kb)
+
+def get_topic_keyboard(subj_id):
+    kb = []
+    for file_name, topic_data in questions_db[subj_id]["topics"].items():
+        count = len(topic_data["questions"])
+        kb.append([InlineKeyboardButton(text=f"{topic_data['title']} ({count})", callback_data=f"topic_{subj_id}_{file_name}")])
+    kb.append([InlineKeyboardButton(text="⬅️ Fanlarga", callback_data="show_fans")])
+    return InlineKeyboardMarkup(inline_keyboard=kb)
+
 # ================================================================
-#                  SHAXSIY CHAT (PM) MANTIGI
+#                  SHAXSIY CHAT (PM)
 # ================================================================
 async def update_timer_pm(chat_id, message_id, user_id):
     session = user_sessions.get(user_id)
@@ -225,11 +230,11 @@ async def ask_question_pm(message: Message, state: FSMContext, user_id: int):
 
     if q_index >= len(q_list):
         save_result(user_id, session.get("username"), session.get("full_name"),
-                    session["score"], len(q_list), session["topic_name"], session["chat_id"])
+                    session["score"], len(q_list), session["topic_name"], session["chat_id"], "private")
         await message.answer(
-            f"🏆 <b>TEST TUGADI!</b>\n\n📚 Mavzu: <b>{session['topic_name']}</b>\n"
+            f"🏆 <b>TEST TUGADI!</b>\n\n📚 {session['topic_name']}\n"
             f"📊 Natija: <b>{session['score']}</b> / <b>{len(q_list)}</b>\n"
-            f"📈 Foiz: <b>{round(session['score'] / len(q_list) * 100)}%</b>\n\nQayta boshlash: /start",
+            f"📈 Foiz: <b>{round(session['score'] / len(q_list) * 100)}%</b>\n\nQayta: /start",
             parse_mode="HTML")
         await state.set_state(QuizStates.idle)
         return
@@ -262,9 +267,133 @@ async def time_limit_pm(user_id: int, state: FSMContext):
         except Exception: pass
         if session.get("update_timer_task"): session["update_timer_task"].cancel()
         session["current_q"] += 1
-        msg = await bot.send_message(session["chat_id"], "⏳ Vaqt tugadi! ➡️ Keyingi savol:", reply_markup=get_stop_keyboard())
+        msg = await bot.send_message(session["chat_id"], "⏳ Vaqt tugadi! ➡️", reply_markup=get_stop_keyboard())
         await ask_question_pm(msg, state, user_id)
     except asyncio.CancelledError: pass
+
+# ================================================================
+#                  GURUH O'YINI
+# ================================================================
+async def update_timer_group(chat_id, message_id):
+    game = active_games.get(chat_id)
+    if not game: return
+    current_q_index = game.get("timer_q_index", -1)
+    time_left = QUIZ_TIME
+    try:
+        while time_left > 0:
+            await asyncio.sleep(1)
+            time_left -= 1
+            if game.get("timer_q_index") != current_q_index: break
+            try:
+                await bot.edit_message_text(chat_id=chat_id, message_id=message_id,
+                    text=f"⏳ Qolgan vaqt: {time_left}s | Javob berganlar: {len(game.get('answers', {}))}")
+            except Exception: pass
+    except asyncio.CancelledError: pass
+
+async def ask_question_group(chat_id: int):
+    game = active_games.get(chat_id)
+    if not game or not game["is_running"]: return
+    
+    q_index = game["current_q"]
+    q_list = game["questions"]
+    
+    if q_index >= len(q_list):
+        await end_game_group(chat_id)
+        return
+    
+    q = q_list[q_index]
+    block_num = q_index // GROUP_BLOCK_SIZE + 1
+    total_blocks = (len(q_list) + GROUP_BLOCK_SIZE - 1) // GROUP_BLOCK_SIZE
+    progress = f"📦 Blok {block_num}/{total_blocks} | Savol {q_index + 1}/{len(q_list)}"
+    
+    game["answers"] = {}
+    game["timer_q_index"] = q_index
+    
+    sent_poll = await bot.send_poll(
+        chat_id=chat_id,
+        question=f"{progress}\n\n{q['text']}", 
+        options=q["options"], 
+        type="quiz",
+        correct_option_id=q["correct"], 
+        is_anonymous=False,
+        explanation=f"To'g'ri javob: {q['options'][q['correct']]}")
+    
+    game["poll_id"] = sent_poll.poll.id
+    game["message_id"] = sent_poll.message_id
+    
+    timer_msg = await bot.send_message(chat_id, f"⏳ Qolgan vaqt: {QUIZ_TIME}s | Javob berganlar: 0", reply_markup=get_stop_keyboard())
+    game["timer_task"] = asyncio.create_task(time_limit_group(chat_id))
+    game["update_timer_task"] = asyncio.create_task(update_timer_group(chat_id, timer_msg.message_id))
+
+async def time_limit_group(chat_id: int):
+    try:
+        await asyncio.sleep(QUIZ_TIME)
+        game = active_games.get(chat_id)
+        if not game or not game["is_running"]: return
+        try: await bot.stop_poll(chat_id=chat_id, message_id=game["message_id"])
+        except Exception: pass
+        if game.get("update_timer_task"): game["update_timer_task"].cancel()
+        
+        # Javob bermaganlarga 0 ball
+        game["current_q"] += 1
+        
+        # Blok natijasi
+        if game["current_q"] > 0 and game["current_q"] % GROUP_BLOCK_SIZE == 0:
+            await show_block_result_group(chat_id)
+            await asyncio.sleep(4)
+        
+        await ask_question_group(chat_id)
+    except asyncio.CancelledError: pass
+
+async def show_block_result_group(chat_id: int):
+    game = active_games.get(chat_id)
+    if not game: return
+    block_num = game["current_q"] // GROUP_BLOCK_SIZE
+    block_score = game["block_scores"][block_num - 1] if block_num <= len(game["block_scores"]) else 0
+    
+    sorted_scores = sorted(game["scores"].items(), key=lambda x: x[1], reverse=True)[:10]
+    text = f"📊 <b>BLOK {block_num} NATIJASI</b> (Savollar {(block_num-1)*GROUP_BLOCK_SIZE+1}-{block_num*GROUP_BLOCK_SIZE})\n\n"
+    text += f"✅ Eng yaxshi natija: <b>{block_score}</b> / <b>{GROUP_BLOCK_SIZE}</b>\n\n"
+    text += "<b>🏆 Top 10:</b>\n"
+    for i, (user_id, score) in enumerate(sorted_scores):
+        try:
+            user = await bot.get_chat(user_id)
+            name = user.full_name or f"User {user_id}"
+        except Exception:
+            name = f"User {user_id}"
+        emoji = "🥇" if i == 0 else "🥈" if i == 1 else "🥉" if i == 2 else f"{i+1}."
+        text += f"{emoji} {name}: <b>{score}</b>\n"
+    
+    await bot.send_message(chat_id, text, parse_mode="HTML", reply_markup=get_stop_keyboard())
+
+async def end_game_group(chat_id: int):
+    game = active_games.get(chat_id)
+    if not game: return
+    game["is_running"] = False
+    if game.get("timer_task"): game["timer_task"].cancel()
+    if game.get("update_timer_task"): game["update_timer_task"].cancel()
+    
+    # Natijalarni saqlash
+    for user_id, score in game["scores"].items():
+        user_info = game.get("user_info", {}).get(user_id, {})
+        save_result(user_id, user_info.get("username"), user_info.get("full_name"),
+                    score, len(game["questions"]), game["topic_name"], chat_id, "group")
+    
+    sorted_scores = sorted(game["scores"].items(), key=lambda x: x[1], reverse=True)
+    text = f"🏆 <b>O'YIN TUGADI!</b>\n\n📚 {game['topic_name']}\n"
+    text += f"📝 Jami savollar: <b>{len(game['questions'])}</b>\n"
+    text += f"👥 Ishtirokchilar: <b>{len(game['participants'])}</b>\n\n<b>YAKUNIY REYTING:</b>\n\n"
+    
+    for i, (user_id, score) in enumerate(sorted_scores[:20]):
+        user_info = game.get("user_info", {}).get(user_id, {})
+        name = user_info.get("full_name", f"User {user_id}")
+        emoji = "🥇" if i == 0 else "🥈" if i == 1 else "🥉" if i == 2 else f"{i+1}."
+        total = len(game["questions"])
+        percent = round(score / total * 100) if total else 0
+        text += f"{emoji} {name}: <b>{score}/{total}</b> ({percent}%)\n"
+    
+    await bot.send_message(chat_id, text, parse_mode="HTML")
+    del active_games[chat_id]
 
 # ================= HANDLERLAR =================
 @router.message(Command("start"))
@@ -273,14 +402,14 @@ async def cmd_start(message: Message, state: FSMContext):
     user_id = message.from_user.id
 
     if message.chat.type == 'private':
+        # Shaxsiy chat - mavjud sessiyani tekshirish
         if (user_id in user_sessions and 
             user_sessions[user_id].get("current_q", 0) > 0 and
             user_sessions[user_id].get("current_q", 0) < len(user_sessions[user_id].get("questions", []))):
             s = user_sessions[user_id]
             await message.answer(
-                f"⚠️ Siz allaqachon test yechayapsiz!\n"
-                f"📝 Savol: {s['current_q']+1}/{len(s['questions'])}\n"
-                f"✅ To'g'ri: {s['score']}\n\nDavom eting yoki /stop bosing.",
+                f"⚠️ Test davom etmoqda!\n📝 Savol: {s['current_q']+1}/{len(s['questions'])}\n"
+                f"✅ To'g'ri: {s['score']}\n\nDavom eting yoki /stop",
                 parse_mode="HTML"
             )
             return
@@ -290,97 +419,183 @@ async def cmd_start(message: Message, state: FSMContext):
             if user_sessions[user_id].get("update_timer_task"): user_sessions[user_id]["update_timer_task"].cancel()
             del user_sessions[user_id]
         
-        # FANLARNI TANLASH MENYUSI
-        kb = []
-        for subj_id, subj_data in questions_db.items():
-            total_q = sum(len(t["questions"]) for t in subj_data["topics"].values())
-            kb.append([InlineKeyboardButton(text=f"{subj_data['title']} ({total_q} ta)", callback_data=f"subj_{subj_id}")])
+        user_sessions[user_id] = {
+            "current_q": 0, "score": 0, "timer_task": None, "update_timer_task": None,
+            "poll_id": None, "chat_id": message.chat.id, "message_id": None, "timer_q_index": -1,
+            "full_name": message.from_user.full_name, "username": message.from_user.username
+        }
         
         await message.answer(
             f"👋 <b>Salom, {message.from_user.full_name}!</b>\n\n📚 <b>Oraliq Quiz Bot</b>\n"
             f"⏱ Har bir savolga: <b>{QUIZ_TIME}s</b>\n"
-            f"📦 Savollar {PM_BLOCK_SIZE} tadan bloklarga bo'lingan\n\n🎯 <b>Fanni tanlang:</b>",
-            parse_mode="HTML", reply_markup=InlineKeyboardMarkup(inline_keyboard=kb))
+            f"📦 Har {PM_BLOCK_SIZE} tadan blok\n\n🎯 <b>Fanni tanlang:</b>",
+            parse_mode="HTML", reply_markup=get_fan_keyboard())
         await state.set_state(QuizStates.idle)
+    
+    else:
+        # GURUH - o'yinni boshlash
+        chat_id = message.chat.id
+        if chat_id in active_games and active_games[chat_id]["is_running"]:
+            await message.answer("⚠️ Guruhda test allaqachon boshlangan! /stop bilan to'xtating.")
+            return
+        
+        active_games[chat_id] = {
+            "is_running": True, "chat_id": chat_id, "questions": [], "topic_name": "",
+            "current_q": 0, "poll_id": None, "message_id": None,
+            "timer_task": None, "update_timer_task": None, "timer_q_index": -1,
+            "scores": {}, "participants": set(), "answers": {},
+            "block_scores": [], "user_info": {}
+        }
+        
+        await message.answer(
+            f"🎯 <b>Guruh testi</b>\n\n👥 Guruh: {message.chat.title}\n"
+            f"⏱ Har bir savolga: <b>{QUIZ_TIME}s</b>\n"
+            f"📦 Har {GROUP_BLOCK_SIZE} tadan blok natijasi\n\n🎯 <b>Fanni tanlang:</b>",
+            parse_mode="HTML", reply_markup=get_fan_keyboard())
+
+@router.message(Command("quiz"))
+async def cmd_quiz(message: Message):
+    """Guruhda yangi test boshlash"""
+    if message.from_user.is_bot: return
+    if message.chat.type in ['group', 'supergroup']:
+        chat_id = message.chat.id
+        if chat_id in active_games and active_games[chat_id]["is_running"]:
+            await message.answer("⚠️ Test davom etmoqda! /stop bilan to'xtating.")
+            return
+        await cmd_start(message, None)
+    else:
+        await message.answer("Bu command faqat guruhda ishlaydi!")
 
 @router.message(Command("topics"))
 async def cmd_topics(message: Message):
     if message.from_user.is_bot: return
     if message.chat.type != 'private':
-        await message.answer("📚 Mavzu tanlash faqat shaxsiy chatda ishlaydi!")
+        await message.answer("📚 Mavzu tanlash faqat shaxsiy chatda!")
         return
-    
-    kb = []
-    for subj_id, subj_data in questions_db.items():
-        total_q = sum(len(t["questions"]) for t in subj_data["topics"].values())
-        kb.append([InlineKeyboardButton(text=f"{subj_data['title']} ({total_q} ta)", callback_data=f"subj_{subj_id}")])
-    
-    await message.answer("📚 <b>Fanni tanlang:</b>", parse_mode="HTML", reply_markup=InlineKeyboardMarkup(inline_keyboard=kb))
+    await message.answer("📚 <b>Fanni tanlang:</b>", parse_mode="HTML", reply_markup=get_fan_keyboard())
+
+@router.callback_query(F.data == "show_fans")
+async def show_fans(callback: CallbackQuery):
+    await callback.message.edit_text("🎯 <b>Fanni tanlang:</b>", parse_mode="HTML", reply_markup=get_fan_keyboard())
+    await callback.answer()
 
 @router.callback_query(F.data.startswith("subj_"))
 async def show_topics(callback: CallbackQuery):
     subj_id = callback.data.replace("subj_", "")
-    subj_data = questions_db.get(subj_id)
-    if not subj_data: return
+    if subj_id not in questions_db:
+        await callback.answer("Xatolik", show_alert=True)
+        return
     
-    kb = []
-    for file_name, topic_data in subj_data["topics"].items():
-        count = len(topic_data["questions"])
-        kb.append([InlineKeyboardButton(text=f"{topic_data['title']} ({count} ta)", callback_data=f"topic_{subj_id}_{file_name}")])
-    kb.append([InlineKeyboardButton(text="⬅️ Orqaga (Fanlar)", callback_data="show_main_menu")])
+    chat_id = callback.message.chat.id
+    chat_type = callback.message.chat.type
     
-    await callback.message.edit_text(f"📖 <b>{subj_data['title']}</b>\n\nMavzuni tanlang:", parse_mode="HTML", reply_markup=InlineKeyboardMarkup(inline_keyboard=kb))
-    await callback.answer()
-
-@router.callback_query(F.data == "show_main_menu")
-async def show_main_menu(callback: CallbackQuery):
-    kb = []
-    for subj_id, subj_data in questions_db.items():
-        total_q = sum(len(t["questions"]) for t in subj_data["topics"].values())
-        kb.append([InlineKeyboardButton(text=f"{subj_data['title']} ({total_q} ta)", callback_data=f"subj_{subj_id}")])
+    # Guruhda o'yin borligini tekshirish
+    if chat_type in ['group', 'supergroup']:
+        if chat_id not in active_games or not active_games[chat_id]["is_running"]:
+            await callback.answer("Avval /start bosing!", show_alert=True)
+            return
     
-    await callback.message.edit_text("🎯 <b>Fanni tanlang:</b>", parse_mode="HTML", reply_markup=InlineKeyboardMarkup(inline_keyboard=kb))
+    await callback.message.edit_text(
+        f"📖 <b>{questions_db[subj_id]['title']}</b>\n\nMavzuni tanlang:",
+        parse_mode="HTML", reply_markup=get_topic_keyboard(subj_id))
     await callback.answer()
 
 @router.callback_query(F.data.startswith("topic_"))
-async def choose_topic_pm(callback: CallbackQuery, state: FSMContext):
+async def choose_topic(callback: CallbackQuery, state: FSMContext = None):
     user_id = callback.from_user.id
+    chat_id = callback.message.chat.id
+    chat_type = callback.message.chat.type
+    
     parts = callback.data.replace("topic_", "").split("_", 1)
-    if len(parts) != 2: return
+    if len(parts) != 2:
+        await callback.answer("Xatolik", show_alert=True)
+        return
     
     subj_id, file_name = parts
     topic_data = questions_db.get(subj_id, {}).get("topics", {}).get(file_name)
     
     if not topic_data:
-        await callback.answer("Xatolik yuz berdi", show_alert=True)
+        await callback.answer("Mavzu topilmadi", show_alert=True)
         return
+    
+    if chat_type == 'private':
+        # SHAXSIY CHAT
+        session = user_sessions.get(user_id)
+        if not session:
+            session = {
+                "current_q": 0, "score": 0, "timer_task": None, "update_timer_task": None,
+                "poll_id": None, "chat_id": chat_id, "message_id": None, "timer_q_index": -1,
+                "full_name": callback.from_user.full_name, "username": callback.from_user.username
+            }
+            user_sessions[user_id] = session
+        
+        session["questions"] = topic_data["questions"]
+        session["topic_name"] = topic_data["title"]
+        session["current_q"] = 0
+        session["score"] = 0
+        session["chat_id"] = chat_id
+        session["block_scores"] = [0] * ((len(session["questions"]) + PM_BLOCK_SIZE - 1) // PM_BLOCK_SIZE)
+        
+        await callback.message.edit_text(
+            f"🚀 <b>{session['topic_name']}</b> boshlandi!\nJami: {len(session['questions'])} ta",
+            parse_mode="HTML")
+        await callback.answer()
+        
+        msg = await bot.send_message(chat_id, "➡️ Birinchi savol:", reply_markup=get_stop_keyboard())
+        await ask_question_pm(msg, state, user_id)
+    
+    else:
+        # GURUH
+        if chat_id not in active_games or not active_games[chat_id]["is_running"]:
+            await callback.answer("Avval /start bosing!", show_alert=True)
+            return
+        
+        game = active_games[chat_id]
+        game["questions"] = topic_data["questions"]
+        game["topic_name"] = topic_data["title"]
+        game["current_q"] = 0
+        game["scores"] = {}
+        game["participants"] = set()
+        game["answers"] = {}
+        game["user_info"] = {}
+        game["block_scores"] = [0] * ((len(game["questions"]) + GROUP_BLOCK_SIZE - 1) // GROUP_BLOCK_SIZE)
+        
+        await callback.message.edit_text(
+            f"🚀 <b>{game['topic_name']}</b> boshlandi!\nJami: {len(game['questions'])} ta\n"
+            f"👥 Ishtirokchilar soni: test davomida aniqlanadi",
+            parse_mode="HTML")
+        await callback.answer()
+        
+        await asyncio.sleep(2)
+        await ask_question_group(chat_id)
 
-    if user_id not in user_sessions:
-        user_sessions[user_id] = {
-            "current_q": 0, "score": 0, "timer_task": None, "update_timer_task": None,
-            "poll_id": None, "chat_id": callback.message.chat.id, "message_id": None, "timer_q_index": -1,
-            "full_name": callback.from_user.full_name, "username": callback.from_user.username
-        }
+@router.message(Command("players"))
+async def cmd_players(message: Message):
+    if message.from_user.is_bot: return
+    if message.chat.type not in ['group', 'supergroup']:
+        await message.answer("👥 Bu command faqat guruhda!")
+        return
     
-    session = user_sessions[user_id]
-    session["questions"] = topic_data["questions"]
-    session["topic_name"] = topic_data["title"]
-    session["current_q"] = 0
-    session["score"] = 0
-    session["chat_id"] = callback.message.chat.id
-    session["block_scores"] = [0] * ((len(session["questions"]) + PM_BLOCK_SIZE - 1) // PM_BLOCK_SIZE)
+    chat_id = message.chat.id
+    game = active_games.get(chat_id)
+    if not game or not game["is_running"]:
+        await message.answer("👥 Hozircha o'yin yo'q. /start bosing!")
+        return
     
-    await callback.message.edit_text(f"🚀 <b>{session['topic_name']}</b> boshlandi!\nJami savollar: {len(session['questions'])} ta\nHar {PM_BLOCK_SIZE} tadan blok bo'lib chiqadi.", parse_mode="HTML")
-    await callback.answer()
-    
-    msg = await bot.send_message(callback.message.chat.id, "➡️ Birinchi savol:", reply_markup=get_stop_keyboard())
-    await ask_question_pm(msg, state, user_id)
+    sorted_scores = sorted(game["scores"].items(), key=lambda x: x[1], reverse=True)
+    text = f"👥 <b>Ishtirokchilar</b> ({len(game['participants'])} ta)\n\n"
+    for i, (uid, score) in enumerate(sorted_scores[:15]):
+        info = game.get("user_info", {}).get(uid, {})
+        name = info.get("full_name", f"User {uid}")
+        emoji = "🥇" if i == 0 else "🥈" if i == 1 else "🥉" if i == 2 else f"{i+1}."
+        text += f"{emoji} {name}: <b>{score}</b>\n"
+    await message.answer(text, parse_mode="HTML")
 
 @router.message(Command("progress"))
 async def cmd_progress(message: Message):
     if message.from_user.is_bot: return
     if message.chat.type != 'private':
-        await message.answer("📊 Guruhda /players buyrug'ini bosing.")
+        await message.answer("📊 Guruhda /players bosing.")
         return
     user_id = message.from_user.id
     session = user_sessions.get(user_id)
@@ -392,56 +607,140 @@ async def cmd_progress(message: Message):
     block_num = done // PM_BLOCK_SIZE + 1
     total_blocks = (total + PM_BLOCK_SIZE - 1) // PM_BLOCK_SIZE
     await message.answer(
-        f"📊 <b>Joriy holatingiz</b>\n\n📚 Mavzu: <b>{session['topic_name']}</b>\n"
+        f"📊 <b>Joriy holat</b>\n\n📚 {session['topic_name']}\n"
         f"📦 Blok: <b>{block_num}/{total_blocks}</b>\n📝 Savol: <b>{done}</b> / <b>{total}</b>\n"
         f"✅ To'g'ri: <b>{score}</b>\n📈 Aniqlik: <b>{percent}%</b>", parse_mode="HTML")
 
-@router.message(Command("stop"))
-@router.callback_query(F.data == "stop_quiz")
-async def cmd_stop(message_or_callback, state: FSMContext = None):
-    # Handler moslashuvi: Message yoki CallbackQuery bo'lishi mumkin
-    if isinstance(message_or_callback, CallbackQuery):
-        user_id = message_or_callback.from_user.id
-        chat_type = message_or_callback.message.chat.type
-        respond = message_or_callback.message.answer
-        ack = message_or_callback.answer
-    else:
-        user_id = message_or_callback.from_user.id
-        chat_type = message_or_callback.chat.type
-        respond = message_or_callback.answer
-        ack = lambda: None
+@router.message(Command("leaderboard"))
+async def cmd_leaderboard(message: Message):
+    if message.from_user.is_bot: return
+    if message.chat.type not in ['group', 'supergroup']:
+        await message.answer("🏆 Bu command faqat guruhda!")
+        return
+    
+    chat_id = message.chat.id
+    conn = sqlite3.connect('quiz_results.db')
+    cursor = conn.cursor()
+    cursor.execute("""
+        SELECT full_name, username, score, total_questions, topic, date 
+        FROM results WHERE chat_id = ? AND chat_type = 'group' ORDER BY score DESC LIMIT 10
+    """, (chat_id,))
+    rows = cursor.fetchall()
+    conn.close()
+    
+    if not rows:
+        await message.answer("📊 Bu guruhda hali natija yo'q.")
+        return
+    
+    text = f"🏆 <b>Guruh Reytingi</b> (Top 10)\n\n"
+    for i, (name, username, score, total, topic, date) in enumerate(rows):
+        uname = f"@{username}" if username else ""
+        percent = round(score / total * 100) if total else 0
+        emoji = "🥇" if i == 0 else "🥈" if i == 1 else "🥉" if i == 2 else f"{i+1}."
+        text += f"{emoji} {name} {uname}\n   📚 {topic}\n   ✅ {score}/{total} ({percent}%)\n   📅 {date}\n\n"
+    await message.answer(text, parse_mode="HTML")
 
+@router.message(Command("stats"))
+async def cmd_stats(message: Message):
+    if message.from_user.is_bot: return
+    if message.chat.type != 'private':
+        await message.answer("📊 Faqat shaxsiy chatda!")
+        return
+    
+    user_id = message.from_user.id
+    conn = sqlite3.connect('quiz_results.db')
+    cursor = conn.cursor()
+    cursor.execute("SELECT topic, score, total_questions, date FROM results WHERE user_id = ? AND chat_type = 'private' ORDER BY date DESC", (user_id,))
+    rows = cursor.fetchall()
+    conn.close()
+    
+    if not rows:
+        await message.answer("📊 Hali test ishlamagansiz. /start bosing!")
+        return
+    
+    text = f"📊 <b>Statistikangiz</b>\n\n"
+    for topic, score, total, date in rows:
+        percent = round(score / total * 100) if total else 0
+        emoji = "🏆" if percent >= 80 else "👍" if percent >= 60 else "📚"
+        text += f"{emoji} {topic}\n   ✅ {score}/{total} ({percent}%)\n   📅 {date}\n\n"
+    await message.answer(text, parse_mode="HTML")
+
+@router.message(Command("help"))
+async def cmd_help(message: Message):
+    if message.from_user.is_bot: return
+    if message.chat.type == 'private':
+        await message.answer(
+            "❓ <b>Yordam (Shaxsiy chat)</b>\n\n🚀 <b>/start</b> — Fan va mavzu tanlash\n"
+            f"📦 Har {PM_BLOCK_SIZE} savolda blok natijasi\n⏱ Savolga vaqt: <b>{QUIZ_TIME}s</b>\n"
+            "📊 <b>/progress</b> — Joriy natija\n📈 <b>/stats</b> — Statistikangiz\n"
+            "⏹ <b>/stop</b> — To'xtatish", parse_mode="HTML")
+    else:
+        await message.answer(
+            "❓ <b>Yordam (Guruh)</b>\n\n🚀 <b>/start</b> — Test boshlash\n"
+            f"📦 Har {GROUP_BLOCK_SIZE} savolda blok reytingi\n⏱ Savolga vaqt: <b>{QUIZ_TIME}s</b>\n"
+            "👥 <b>/players</b> — Ishtirokchilar\n🏆 <b>/leaderboard</b> — Reyting\n"
+            "⏹ <b>/stop</b> — To'xtatish (admin)", parse_mode="HTML")
+
+@router.message(Command("stop"))
+async def cmd_stop(message: Message, state: FSMContext = None):
+    if message.from_user.is_bot: return
+    user_id = message.from_user.id
+    
+    if message.chat.type == 'private':
+        session = user_sessions.get(user_id)
+        if session:
+            if session.get("timer_task"): session["timer_task"].cancel()
+            if session.get("update_timer_task"): session["update_timer_task"].cancel()
+            total = len(session["questions"])
+            score = session["score"]
+            save_result(user_id, session.get("username"), session.get("full_name"),
+                        score, total, session["topic_name"], session["chat_id"], "private")
+            del user_sessions[user_id]
+            await message.answer(
+                f"⏹ <b>To'xtatildi!</b>\n✅ {score}/{total} ({round(score/total*100) if total else 0}%)\n\n/start",
+                parse_mode="HTML"
+            )
+            if state: await state.set_state(QuizStates.idle)
+        else:
+            await message.answer("Test boshlanmagan.")
+    else:
+        if user_id == ADMIN_ID:
+            chat_id = message.chat.id
+            if chat_id in active_games and active_games[chat_id]["is_running"]:
+                await end_game_group(chat_id)
+            else:
+                await message.answer("O'yin yo'q.")
+        else:
+            await message.answer("🔒 Faqat admin to'xtata oladi!")
+
+@router.callback_query(F.data == "stop_quiz")
+async def stop_quiz_cb(callback: CallbackQuery, state: FSMContext = None):
+    user_id = callback.from_user.id
+    chat_type = callback.message.chat.type
+    chat_id = callback.message.chat.id
+    
     if chat_type == 'private':
         session = user_sessions.get(user_id)
         if session:
             if session.get("timer_task"): session["timer_task"].cancel()
             if session.get("update_timer_task"): session["update_timer_task"].cancel()
-            
-            total = len(session["questions"])
-            score = session["score"]
-            save_result(user_id, session.get("username"), session.get("full_name"), score, total, session["topic_name"], session["chat_id"])
+            save_result(user_id, session.get("username"), session.get("full_name"),
+                        session["score"], len(session["questions"]), session["topic_name"], session["chat_id"], "private")
+            await callback.message.answer(f"⏹ To'xtatildi!\n✅ {session['score']}/{len(session['questions'])}", parse_mode="HTML")
             del user_sessions[user_id]
-            
-            await respond(
-                f"⏹ <b>Test to'xtatildi!</b>\n\n"
-                f"✅ Natija: <b>{score}</b> / <b>{total}</b>\n"
-                f"📈 Foiz: <b>{round(score / total * 100) if total > 0 else 0}%</b>\n\n"
-                f"Qayta boshlash uchun /start bosing.",
-                parse_mode="HTML"
-            )
             if state: await state.set_state(QuizStates.idle)
-        else:
-            await respond("Siz hali test boshlamagansiz.")
     else:
-        if user_id == ADMIN_ID and active_game["is_running"]:
-            await end_game_group()
-    await ack()
+        if user_id == ADMIN_ID and chat_id in active_games and active_games[chat_id]["is_running"]:
+            await end_game_group(chat_id)
+    await callback.answer()
 
+# ================= POLL ANSWER =================
 @router.poll_answer()
-async def process_poll_answer(poll_answer: PollAnswer, state: FSMContext):
+async def process_poll_answer(poll_answer: PollAnswer, state: FSMContext = None):
     user_id = poll_answer.user.id
-    option_id = poll_answer.option_ids[0]
-
+    option_id = poll_answer.option_ids[0] if poll_answer.option_ids else None
+    
+    # SHAXSIY CHAT
     session = user_sessions.get(user_id)
     if session and poll_answer.poll_id == session.get("poll_id"):
         if session.get("timer_task"): session["timer_task"].cancel()
@@ -451,56 +750,54 @@ async def process_poll_answer(poll_answer: PollAnswer, state: FSMContext):
         if option_id == q["correct"]:
             session["score"] += 1
             block_num = session["current_q"] // PM_BLOCK_SIZE
-            session["block_scores"][block_num] += 1
-            
+            if block_num < len(session["block_scores"]):
+                session["block_scores"][block_num] += 1
+        
         await asyncio.sleep(2)
         session["current_q"] += 1
         
-        # BLOK NATIJASINI KO'RSATISH (Har 30 ta savolda)
         if session["current_q"] > 0 and session["current_q"] % PM_BLOCK_SIZE == 0:
             block_num = session["current_q"] // PM_BLOCK_SIZE
             block_score = session["block_scores"][block_num - 1]
             await bot.send_message(session["chat_id"],
-                f"📊 <b>BLOK {block_num} NATIJASI</b> (Savollar {(block_num-1)*PM_BLOCK_SIZE+1}-{block_num*PM_BLOCK_SIZE})\n\n"
+                f"📊 <b>BLOK {block_num}</b> ({(block_num-1)*PM_BLOCK_SIZE+1}-{block_num*PM_BLOCK_SIZE})\n"
                 f"✅ To'g'ri: <b>{block_score}</b> / <b>{PM_BLOCK_SIZE}</b>\n"
                 f"📈 Foiz: <b>{round(block_score / PM_BLOCK_SIZE * 100)}%</b>\n\n⏳ Keyingi blok...",
                 parse_mode="HTML", reply_markup=get_stop_keyboard())
             await asyncio.sleep(4)
-            
+        
         try:
             msg = await bot.send_message(session["chat_id"], "➡️ Keyingi savol:", reply_markup=get_stop_keyboard())
             await ask_question_pm(msg, state, user_id)
-        except Exception as e: 
-            print(f"PM Xatolik: {e}")
+        except Exception as e: print(f"PM Xato: {e}")
         return
 
-# ================= STATISTIKA =================
-@router.message(Command("stats"))
-async def cmd_stats(message: Message):
-    if message.from_user.is_bot: return
-    if message.chat.type != 'private':
-        await message.answer("📊 Bu command faqat shaxsiy chatda ishlaydi!")
-        return
-    
-    user_id = message.from_user.id
-    conn = sqlite3.connect('quiz_results.db')
-    cursor = conn.cursor()
-    cursor.execute("SELECT topic, score, total_questions, date FROM results WHERE user_id = ? ORDER BY date DESC", (user_id,))
-    rows = cursor.fetchall()
-    conn.close()
-    
-    if not rows:
-        await message.answer("📊 Siz hali test ishlamagansiz. /start bosing!")
-        return
-    
-    text = f"📊 <b>Sizning Statistikangiz</b>\n\n"
-    for topic, score, total, date in rows:
-        percent = round(score / total * 100) if total else 0
-        emoji = "🏆" if percent >= 80 else "👍" if percent >= 60 else "📚"
-        text += f"{emoji} {topic}\n   ✅ {score}/{total} ({percent}%)\n   📅 {date}\n\n"
-    await message.answer(text, parse_mode="HTML")
+    # GURUH
+    for chat_id, game in active_games.items():
+        if game.get("is_running") and poll_answer.poll_id == game.get("poll_id"):
+            game["participants"].add(user_id)
+            
+            # User info saqlash
+            if user_id not in game["user_info"]:
+                game["user_info"][user_id] = {
+                    "full_name": poll_answer.user.full_name or f"User {user_id}",
+                    "username": poll_answer.user.username
+                }
+            
+            if user_id not in game["scores"]:
+                game["scores"][user_id] = 0
+            
+            if user_id not in game["answers"] and option_id is not None:
+                game["answers"][user_id] = option_id
+                q = game["questions"][game["current_q"]]
+                if option_id == q["correct"]:
+                    game["scores"][user_id] += 1
+                    block_num = game["current_q"] // GROUP_BLOCK_SIZE
+                    if block_num < len(game["block_scores"]):
+                        game["block_scores"][block_num] += 1
+            break
 
-# ================= HTTP SERVER (Render uchun) =================
+# ================= HTTP SERVER =================
 async def start_http_server():
     async def handle(request):
         return web.Response(text="✅ Bot ishlayapti!")
@@ -511,7 +808,7 @@ async def start_http_server():
     port = int(os.environ.get('PORT', 10000))
     site = web.TCPSite(runner, '0.0.0.0', port)
     await site.start()
-    print(f"🌐 HTTP server {port} portida ishga tushdi")
+    print(f"🌐 HTTP server {port} portida")
 
 async def main():
     await set_bot_commands()
