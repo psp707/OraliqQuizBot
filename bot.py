@@ -824,3 +824,23 @@ async def main():
 
 if __name__ == "__main__":
     asyncio.run(main())
+
+
+@router.message(Command("start"))
+async def cmd_start(message: Message, state: FSMContext):
+    # DEBUG: Har bir xabarni logga yozish
+    print(f"🔍 Xabar olindi: chat_type={message.chat.type}, chat_id={message.chat.id}, user={message.from_user.id}")
+    
+    if message.from_user.is_bot: 
+        print("⚠️ Bot o'zi yubordi, o'tkazib yuborildi")
+        return
+    
+    user_id = message.from_user.id
+
+    if message.chat.type == 'private':
+        print(f"✅ Shaxsiy chatda /start bosildi, user_id={user_id}")
+        # ... shaxsiy chat logikasi
+        
+    elif message.chat.type in ['group', 'supergroup']:
+        print(f"✅ Guruhda /start bosildi! chat_id={message.chat.id}")
+        # ... guruh logikasi
