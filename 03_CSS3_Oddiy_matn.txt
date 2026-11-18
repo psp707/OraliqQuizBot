@@ -1,0 +1,644 @@
+﻿1. CSS nima?
+A) Tuzilgan hujjatlarning ko‘rinishi va joylashuvini ifodalash tili
+B) Faqat fayl uzatish protokoli
+C) Ma’lumotlar bazasi so‘rov tili
+D) Veb serverning operatsion tizimi
+(Javob: A)
+
+2. <style>p { color: red; }</style> qaysi CSS ulash usuliga misol?
+A) Inline CSS
+B) Import qilingan JavaScript
+C) Tashqi CSS
+D) Ichki CSS
+(Javob: D)
+
+3. h2 { font-weight: bold; } qoidasida selektor qaysi?
+A) h2
+B) font-weight
+C) bold
+D) font-weight: bold
+(Javob: A)
+
+4. Qaysi yozuv element turiga oid selektor hisoblanadi?
+A) a
+B) [href]
+C) #link
+D) .link
+(Javob: A)
+
+5. CSSda class="card" elementlarini tanlovchi selektor qaysi?
+A) #card
+B) card
+C) @card
+D) .card
+(Javob: D)
+
+6. CSSda id="menu" elementini tanlovchi selektor qaysi?
+A) menu
+B) .menu
+C) @menu
+D) #menu
+(Javob: D)
+
+7. h2 { font-size: 14px; } qoidasidagi xossa qaysi?
+A) h2
+B) font-size
+C) 14px
+D) px
+(Javob: B)
+
+8. h2 { font-size: 14px; } qoidasida xossaning qiymati qaysi?
+A) h2
+B) font-size
+C) 14px
+D) font
+(Javob: C)
+
+9. h1 { color: grey; } qoidasidagi color nimani belgilaydi?
+A) Blok kengligini
+B) Tashqi bo‘shliqni
+C) Matnning oldingi rangini
+D) Ro‘yxat markerining joyini
+(Javob: C)
+
+10. font-weight: bold deklaratsiyasi qanday ta’sir ko‘rsatadi?
+A) Matnni kursivga o‘tkazadi
+B) Shriftning qalinligini oshiradi
+C) Satr balandligini ikki baravar qiladi
+D) Matnni markazga tekislaydi
+(Javob: B)
+
+11. CSS qoidasida deklaratsiyalar bloki qaysi belgilar bilan chegaralanadi?
+A) [ va ]
+B) { va }
+C) ( va )
+D) < va >
+(Javob: B)
+
+12. Barcha h1 elementlarining fonini och kulrang qilish qaysi javobda to‘g‘ri?
+A) h1 { background-color: #ccc; }
+B) #h1 { font-color: #ccc; }
+C) .h1 { text-color: #ccc; }
+D) h1 { color: #ccc; }
+(Javob: A)
+
+13. Qaysi deklaratsiyada HEX rang noto‘g‘ri berilgan?
+A) color: #fff;
+B) color: #abc;
+C) color: #123456;
+D) color: #hhh;
+(Javob: D)
+
+14. Qaysi CSS qoidasi sintaktik jihatdan to‘g‘ri?
+A) p { font-size: 150%; }
+B) p { font-size = 150%; }
+C) p { font size: 150%; }
+D) p (font-size: 150%;)
+(Javob: A)
+
+15. Faqat id="myid" bo‘lgan div elementini qaysi selektor tanlaydi?
+A) div myid
+B) myid div
+C) div.myid
+D) div#myid
+(Javob: D)
+
+16. Sichqoncha ko‘rsatkichi havola ustida turgan holat qaysi psevdo-sinf bilan tanlanadi?
+A) a:visited
+B) a:hover
+C) a:checked
+D) a:link
+(Javob: B)
+
+17. CSS selektorining vazifasi nima?
+A) Faqat o‘zgaruvchi e’lon qilish
+B) Qoidani qo‘llash kerak bo‘lgan elementlarni tanlash
+C) Faqat rangning son qiymatini hisoblash
+D) HTML faylini serverga yuklash
+(Javob: B)
+
+18. text-indent xossasi nima uchun ishlatiladi?
+A) Shriftni o‘zgartirish uchun
+B) Blokning fon rasmini berish uchun
+C) Barcha so‘zlar oralig‘ini bir xil oshirish uchun
+D) Blokdagi birinchi formatlangan satrning chekinishini belgilash uchun
+(Javob: D)
+
+19. text-transform: uppercase deklaratsiyasi nima qiladi?
+A) Matnni ko‘rsatishda harflarni katta ko‘rinishga o‘tkazadi
+B) HTML manbasidagi barcha belgilarni o‘chiradi
+C) Matnni qalinlashtiradi
+D) Shrift o‘lchamini kattalashtiradi
+(Javob: A)
+
+20. Ro‘yxat markerining turi qaysi CSS xossasi bilan belgilanadi?
+A) list-style-type
+B) list-style-position
+C) text-transform
+D) list-style-image
+(Javob: A)
+
+21. Ro‘yxat markerining ichkarida yoki tashqarida joylashishini qaysi xossa belgilaydi?
+A) vertical-align
+B) list-style-type
+C) text-align
+D) list-style-position
+(Javob: D)
+
+22. Ro‘yxat markeri sifatida rasmni berish uchun qaysi xossa ishlatiladi?
+A) background-color
+B) marker-position
+C) list-style-image
+D) font-image
+(Javob: C)
+
+23. So‘zlar orasidagi masofani qaysi CSS xossasi belgilaydi?
+A) letter-spacing
+B) text-indent
+C) word-spacing
+D) line-height
+(Javob: C)
+
+24. Matn tagiga chiziq chizish uchun qaysi deklaratsiya mos?
+A) font-style: underline;
+B) text-decoration: underline;
+C) text-transform: underline;
+D) line-height: underline;
+(Javob: B)
+
+25. Qaysi juftlik psevdo-sinf va psevdo-elementga misol bo‘ladi?
+A) .card va #menu
+B) [href] va [title]
+C) :hover va ::before
+D) div va p
+(Javob: C)
+
+26. CSSdagi * universal selektori nimani tanlaydi?
+A) Faqat izohlarni
+B) Faqat body elementini
+C) Barcha elementlarni
+D) Faqat class atributi bor elementlarni
+(Javob: C)
+
+27. div > p selektori nimani tanlaydi?
+A) div ichidagi barcha chuqurlikdagi p elementlarini
+B) Faqat id="p" bo‘lgan divni
+C) div elementining bevosita farzandi bo‘lgan p elementlarini
+D) divdan oldingi p elementlarini
+(Javob: C)
+
+28. h1, p selektorlar ro‘yxati nimani tanlaydi?
+A) Faqat h1 ichidagi p elementlarini
+B) Faqat class="h1 p" elementlarini
+C) Faqat p ichidagi h1 elementlarini
+D) h1 elementlari hamda p elementlarini
+(Javob: D)
+
+29. p ~ ul selektori nimani tanlaydi?
+A) Faqat p ning bevosita farzandi ul ni
+B) Barcha ul ichidagi p elementlarini
+C) Faqat p dan oldin keluvchi ul ni
+D) Bir ota elementdagi p dan keyin keluvchi ul aka-uka elementlarini
+(Javob: D)
+
+30. div p selektori nimani tanlaydi?
+A) div ichida istalgan chuqurlikda joylashgan p elementlarini
+B) Faqat divdan keyingi p ni
+C) Faqat divning bevosita farzandi p ni
+D) Faqat id="p" bo‘lgan divni
+(Javob: A)
+
+31. p::after qanday psevdo-elementni belgilaydi?
+A) p mazmunidan keyin hosil qilinadigan psevdo-elementni
+B) p dan keyingi haqiqiy HTML elementni
+C) p ning birinchi harfini
+D) p ning ota elementini
+(Javob: A)
+
+32. ::selection psevdo-elementi qaysi holatni bezashga xizmat qiladi?
+A) Faqat tanlangan checkboxni
+B) Faqat ochilgan select ro‘yxatini
+C) Foydalanuvchi belgilagan matn bo‘lagini
+D) Faqat sichqoncha ustidagi havolani
+(Javob: C)
+
+33. p::first-line nimaga qoida qo‘llaydi?
+A) p elementining oxirgi satriga
+B) p elementining birinchi farzandiga
+C) p elementining birinchi formatlangan satriga
+D) Hujjatning birinchi p elementiga
+(Javob: C)
+
+34. input:checked selektori qaysi boshqaruvni tanlashi mumkin?
+A) Har qanday bo‘sh matn maydonini
+B) Faqat qiymati noto‘g‘ri maydonni
+C) Faqat tahrirlash taqiqlangan maydonni
+D) Belgilangan checkbox yoki radio boshqaruvini
+(Javob: D)
+
+35. p:first-of-type qaysi p elementini tanlaydi?
+A) Ota element ichida p turidagi birinchi farzandni
+B) Ota elementning har qanday birinchi farzandini
+C) Faqat oxirgi p elementini
+D) Sahifadagi barcha p elementlarini
+(Javob: A)
+
+36. p:first-child qachon p elementini tanlaydi?
+A) Uning class atributi first bo‘lsa
+B) U hujjatdagi istalgan p bo‘lsa
+C) U p turidagi oxirgi farzand bo‘lsa
+D) U ota elementning birinchi element farzandi bo‘lsa
+(Javob: D)
+
+37. input:in-range qaysi holatga mos keladi?
+A) Input ustida sichqoncha turgan bo‘lsa
+B) Har qanday input bo‘sh bo‘lsa
+C) Diapazon cheklovi amal qiladigan input qiymati belgilangan oraliqda bo‘lsa
+D) Har qanday input yashirin bo‘lsa
+(Javob: C)
+
+38. p:only-of-type nimani tanlaydi?
+A) Ota element ichida p turidan yagona bo‘lgan farzandni
+B) Hujjatdagi oxirgi p ni
+C) Faqat class="only" bo‘lgan p ni
+D) Ota elementning albatta yagona element farzandini
+(Javob: A)
+
+39. required atributi bo‘lmagan oddiy matn maydoni qaysi psevdo-sinfga mos keladi?
+A) input:required
+B) input:checked
+C) input:optional
+D) input:visited
+(Javob: C)
+
+40. readonly atributi o‘rnatilgan matnli inputni qaysi selektor tanlaydi?
+A) input:read-only
+B) input:visited
+C) input:write-only
+D) input:link
+(Javob: A)
+
+41. [title~="flower"] selektori nimani tanlaydi?
+A) title qiymatida bo‘shliq bilan ajratilgan flower so‘zi bor elementlarni
+B) Faqat title atributi bo‘lmagan elementlarni
+C) Faqat title qiymati flowers bo‘lgan elementlarni
+D) title qiymati ichida istalgan joyda flower bo‘lagi bor elementlarni
+(Javob: A)
+
+42. [lang|="en"] selektori qaysi lang qiymatlariga mos keladi?
+A) token-en va token-en-US
+B) uz va ru
+C) english va french
+D) en va en-US
+(Javob: D)
+
+43. a[href^="https"] selektorida ^= nimani bildiradi?
+A) Atributning mavjud emasligini
+B) Atribut qiymati berilgan satr bilan tugashini
+C) Faqat atribut qiymatining son ekanini
+D) Atribut qiymati berilgan satr bilan boshlanishini
+(Javob: D)
+
+44. a[href*="htmlbook"] selektori nimani tanlaydi?
+A) Faqat href qiymati aynan htmlbook bo‘lgan elementlarni
+B) Faqat href qiymati htmlbook bilan tugaganlarini
+C) Faqat class="htmlbook" elementlarini
+D) href qiymatida htmlbook satr bo‘lagi mavjud bo‘lgan a elementlarini
+(Javob: D)
+
+45. [target] selektori nimani tanlaydi?
+A) Faqat target atributi yo‘q elementlarni
+B) Faqat target="_blank" elementlarini
+C) target atributi mavjud elementlarni
+D) Faqat target nomli teglarni
+(Javob: C)
+
+46. Qaysi qatorda CSSning mutlaq uzunlik birliklari keltirilgan?
+A) px, cm, mm, in, pt, pc
+B) %, vw, vh, vmin
+C) em, rem, vw, vh
+D) fr, em, rem, ch
+(Javob: A)
+
+47. rem birligi nimaga nisbatan hisoblanadi?
+A) Har doim joriy element paddingiga
+B) Ildiz elementining shrift o‘lchamiga
+C) Har doim ekran balandligiga
+D) Har doim ota element kengligiga
+(Javob: B)
+
+48. Matnning oxirgi satri tekislanishini qaysi xossa boshqaradi?
+A) text-overflow
+B) word-spacing
+C) writing-mode
+D) text-align-last
+(Javob: D)
+
+49. Uzun, bo‘linmaydigan so‘zni zarur bo‘lganda satrga bo‘lish uchun qaysi deklaratsiya mos?
+A) text-transform: uppercase;
+B) overflow-wrap: break-word;
+C) word-spacing: 10px;
+D) white-space: nowrap;
+(Javob: B)
+
+50. text-overflow: ellipsis nimani belgilaydi?
+A) Faqat shriftni kichraytirishni
+B) Har qanday uzun so‘zni o‘chirishni
+C) Mos overflow va satr cheklovlari bo‘lsa, yashirilgan matnni ko‘p nuqta bilan ifodalashni
+D) Har qanday matnni avtomatik ikki satrga bo‘lishni
+(Javob: C)
+
+51. Qaysi qatorda CSS rangini berishning haqiqiy ko‘rinishlari bor?
+A) red, #ff0000, rgb(255, 0, 0), hsl(0, 100%, 50%)
+B) color(red), #rr0000, rgb(red), hsv(0)
+C) paint(red), #zz0000, rbg(red), hls(red)
+D) red, #gg0000, rbg(255, 0, 0), hls(0, 100%, 50%)
+(Javob: A)
+
+52. rgba(255, 255, 190, 0) yozuvida oxirgi 0 nimani bildiradi?
+A) Rang to‘liq noshaffof ekanini
+B) Rang doim qora ekanini
+C) Rang qiymati sintaktik xato ekanini
+D) Rang to‘liq shaffof ekanini
+(Javob: D)
+
+53. Qizil rangning vergulli RGB yozuvi qaysi?
+A) rgb(255, 0, 0)
+B) rgb(0, 0, 255)
+C) rgb(0, 255, 0)
+D) rgb(0, 0, 0)
+(Javob: A)
+
+54. Qaysi vergulli HSL yozuvi to‘g‘ri?
+A) hsl(120, 100, 50)
+B) hsl(120%, 100, 50)
+C) hls(120, 100%, 50%)
+D) hsl(120, 100%, 50%)
+(Javob: D)
+
+55. Yarim shaffof yashil rangning to‘g‘ri vergulli HSLA yozuvi qaysi?
+A) hsla(120, 100%, 50%, 0.5)
+B) hsla(120, 100, 50, 0.5)
+C) hsla(120%, 100, 50, 0.5)
+D) hlsa(120, 100%, 50%, 0.5)
+(Javob: A)
+
+56. Qaysi nom standart CSS chegara xossasi emas?
+A) border-color
+B) border-style
+C) border-width
+D) border-height
+(Javob: D)
+
+57. border-color: transparent qanday natija beradi?
+A) Chegara kengligini har doim nol qiladi
+B) Chegara rangini to‘liq shaffof qiladi
+C) Barcha ichki mazmunni yashiradi
+D) Chegarani har doim qizil qiladi
+(Javob: B)
+
+58. Fon tasviri manzilini qaysi xossa belgilaydi?
+A) background-position
+B) background-size
+C) background-image
+D) background-repeat
+(Javob: C)
+
+59. background-attachment: fixed nimani bildiradi?
+A) Fon tasviri faylga saqlanishini
+B) Fon tasviri doim takrorlanishini
+C) Fon tasviri viewportga nisbatan mahkamlanganini
+D) Fon tasviri har doim element mazmuni bilan aylanishini
+(Javob: C)
+
+60. background-clip: content-box nimani belgilaydi?
+A) Fon faqat margin ichida chizilishini
+B) Fon tasviri doim markazda bo‘lishini
+C) Fon chizilishi content qutisi chegarasi bilan cheklanishini
+D) Fon tasviri hajmi nol bo‘lishini
+(Javob: C)
+
+61. background-size: cover nimani bajaradi?
+A) Tasvirni har doim asl o‘lchamida qoldiradi
+B) Tomonlar nisbatini saqlab, fon maydonini to‘liq qoplashga moslaydi; qismi kesilishi mumkin
+C) Faqat fon rangini o‘zgartiradi
+D) Tasvirning ikkala tomonini doim siqib buzadi
+(Javob: B)
+
+62. CSS box modelining asosiy qismlari qaysi?
+A) Content, padding, border, margin
+B) Header, footer, main, aside
+C) RGB, HSL, HEX, alpha
+D) URL, URI, DNS, HTTP
+(Javob: A)
+
+63. padding nimani bildiradi?
+A) Faqat shrift qalinligini
+B) Faqat ustunlar sonini
+C) Mazmun va chegara orasidagi ichki bo‘shliqni
+D) Chegaradan tashqaridagi bo‘shliqni
+(Javob: C)
+
+64. margin nimani bildiradi?
+A) Faqat satrlar oralig‘ini
+B) Element chegarasidan tashqaridagi bo‘shliqni
+C) Faqat ichki mazmun kengligini
+D) Faqat border qalinligini
+(Javob: B)
+
+65. box-sizing: border-box bo‘lsa width odatda nimalarni qamrab oladi?
+A) Faqat marginni
+B) Faqat contentni
+C) Content, padding, border va marginni
+D) Content, padding va borderni
+(Javob: D)
+
+66. Bir xil origin va qatlamdagi oddiy qoidalar ichida qaysi selektorning specificity darajasi yuqori?
+A) #menu
+B) *
+C) nav
+D) .menu
+(Javob: A)
+
+67. Boshqa color qoidalari bo‘lmasa, p { color: red; } dan keyin p { color: blue; } yozilsa p matni qanday rangda bo‘ladi?
+A) Ikkala rang navbatma-navbat almashadi
+B) Har doim qora
+C) Ko‘k
+D) Qizil
+(Javob: C)
+
+68. Flex konteyner yaratish qaysi deklaratsiyada to‘g‘ri?
+A) position: flex;
+B) layout: flex;
+C) float: flex;
+D) display: flex;
+(Javob: D)
+
+69. Flexboxda justify-content odatda qaysi o‘q bo‘ylab joylashtirishni boshqaradi?
+A) Faqat matnning yozuv yo‘nalishi bo‘ylab
+B) Har doim faqat z o‘qi bo‘ylab
+C) Har doim faqat vertikal o‘q bo‘ylab
+D) Asosiy o‘q bo‘ylab
+(Javob: D)
+
+70. Flexboxda align-items odatda nimani boshqaradi?
+A) Faqat tashqi marginni
+B) Faqat elementlarning DOM tartibini
+C) Faqat matn rangini
+D) Farzand elementlarning ko‘ndalang o‘q bo‘ylab tekislanishini
+(Javob: D)
+
+71. Flex elementlarini zarur bo‘lganda yangi qatorga o‘tkazish qaysi deklaratsiyada beriladi?
+A) flex-direction: wrap;
+B) flex-wrap: wrap;
+C) display: wrap;
+D) white-space: flex;
+(Javob: B)
+
+72. Grid konteyner yaratish qaysi deklaratsiyada to‘g‘ri?
+A) position: grid;
+B) layout: grid;
+C) float: grid;
+D) display: grid;
+(Javob: D)
+
+73. Uchta teng ulushli Grid ustuni qaysi yozuv bilan yaratiladi?
+A) grid-template-rows: 3px;
+B) grid-columns: 3equal;
+C) display: three-grid;
+D) grid-template-columns: repeat(3, 1fr);
+(Javob: D)
+
+74. Grid yoki Flex elementlari orasidagi oraliqni qaysi xossa belgilaydi?
+A) space
+B) border-gap
+C) padding-between
+D) gap
+(Javob: D)
+
+75. Grid tizimidagi fr birligi nimani bildiradi?
+A) Taqsimlanadigan qolgan bo‘shliqning ulushini
+B) Shrift oilasini
+C) Har doim bir pikselni
+D) Ekran chastotasini
+(Javob: A)
+
+76. Viewport kengligi 768 CSS piksel va undan kichik bo‘lganda qaysi media so‘rov mos?
+A) @media (width > 768px)
+B) @media (max-width: 768px)
+C) @media (height: 768px)
+D) @media (min-width: 768px)
+(Javob: B)
+
+77. Mobile first yondashuvi nimani bildiradi?
+A) Barcha o‘lchamlarni faqat pikselda berish
+B) Katta ekran CSSini butunlay o‘chirish
+C) Faqat telefonda ishlaydigan sayt yaratish
+D) Asosiy uslublarni kichik ekranlar uchun yozib, kattaroq ekranlarga kengaytirish
+(Javob: D)
+
+78. Tasvirning konteynerdan oshib ketmasligi va nisbatini saqlashi uchun qaysi juftlik mos?
+A) min-width: 200%; height: 0;
+B) width: 200%; height: 10px;
+C) max-width: 100%; height: auto;
+D) max-height: 0; width: auto;
+(Javob: C)
+
+79. object-fit: cover odatda img mazmuniga qanday ta’sir qiladi?
+A) Har doim rasmni nisbatini buzib cho‘zadi
+B) Belgilangan qutini nisbatni saqlab qoplaydi va zarur qismini kesadi
+C) Faqat img ning marginini o‘zgartiradi
+D) Tasvir faylini serverda kesib saqlaydi
+(Javob: B)
+
+80. position: absolute elementi odatda qaysi containing blockga nisbatan joylashadi?
+A) Har doim sahifaning oxirgi elementiga
+B) Eng yaqin containing block hosil qiluvchi ajdodga; masalan position: relative ajdodga
+C) Har doim o‘z matnining birinchi harfiga
+D) Har doim eng yaqin p elementiga
+(Javob: B)
+
+81. position: fixed odatiy holatda nimaga nisbatan mahkamlanadi?
+A) Faqat o‘z farzandiga
+B) Viewportga
+C) Har doim keyingi elementga
+D) Har doim eng yaqin matn satriga
+(Javob: B)
+
+82. border-radius xossasi nima vazifa bajaradi?
+A) Faqat elementni aylantiradi
+B) Faqat chegara rangini o‘zgartiradi
+C) Element chegara burchaklarini yumaloqlaydi
+D) Faqat shrift qalinligini belgilaydi
+(Javob: C)
+
+83. box-shadow nima uchun qo‘llanadi?
+A) Element qutisiga soya berish uchun
+B) Faqat matnni katta harfga o‘tkazish uchun
+C) Faqat fon rasmini almashtirish uchun
+D) Faqat elementni yashirish uchun
+(Javob: A)
+
+84. transform: translateX(20px) nimani bajaradi?
+A) Elementning ko‘rinishini gorizontal yo‘nalishda 20px siljitadi
+B) Element kengligini 20px qiladi
+C) Barcha keyingi elementlarning odatiy oqimdagi o‘rnini 20px suradi
+D) Shriftni 20px ga kattalashtiradi
+(Javob: A)
+
+85. transform: rotate(45deg) qanday amal bajaradi?
+A) Elementni 45px kengaytiradi
+B) Elementni 45 soniya yashiradi
+C) Elementni 45 marta nusxalaydi
+D) Elementni 45 darajaga aylantiradi
+(Javob: D)
+
+86. transition nimani boshqaradi?
+A) Faqat server so‘rovlari sonini
+B) Xossa qiymatlari orasidagi o‘zgarishning vaqt bo‘yicha o‘tishini
+C) HTML elementining semantik turini
+D) Faqat faylning kodirovkasini
+(Javob: B)
+
+87. CSS animatsiyasining bosqichlari qaysi qoida orqali belgilanadi?
+A) @steps
+B) @keyframes
+C) @animation-steps
+D) @frameset
+(Javob: B)
+
+88. prefers-reduced-motion: reduce media sharti nimani bildiradi?
+A) Sahifa majburiy qora rangda bo‘lishini
+B) Monitor ishlamayotganini
+C) Foydalanuvchi ortiqcha harakatni kamaytirishni afzal ko‘rganini
+D) Internet tezligi nol ekanini
+(Javob: C)
+
+89. CSS custom property qiymatidan foydalanish qaysi yozuvda to‘g‘ri?
+A) color: get(--brand-color);
+B) color: property(--brand-color);
+C) color: $brand-color;
+D) color: var(--brand-color);
+(Javob: D)
+
+90. Elementni klaviatura orqali fokus olganda aniq ajratish uchun qaysi selektor foydali?
+A) :focus-visible
+B) ::selection
+C) :empty
+D) :visited
+(Javob: A)
+
+91. display: none elementga qanday ta’sir qiladi?
+A) Faqat matn rangini oq qiladi
+B) Faqat elementning borderini o‘chiradi
+C) Elementni va avlodlarini render qilmaydi, odatiy joylashuvda o‘rin ajratilmaydi
+D) Elementni shaffof qiladi, lekin joyini doim saqlaydi
+(Javob: C)
+
+92. a:visited qaysi havolalarni bezash uchun ishlatiladi?
+A) Brauzer tarixida tashrif buyurilgan deb hisoblangan havolalarni
+B) Faqat tashqi CSSga havolalarni
+C) Faqat sichqoncha ustida turgan havolalarni
+D) Faqat klaviatura fokusi bor havolalarni
+(Javob: A)
+

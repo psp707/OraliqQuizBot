@@ -1,0 +1,245 @@
+﻿1. jQuery nima?
+A) Brauzerning yangi HTML standarti
+B) Faqat CSS selektori
+C) JavaScriptdan mustaqil dasturlash tili
+D) DOM, hodisalar va boshqa vazifalar bilan ishlashni yengillashtiruvchi JavaScript kutubxonasi
+(Javob: D)
+
+2. Oddiy jQuery hodisa ishlovchisida this joriy element bo‘lsa, uni yashirish qaysi yozuvda to‘g‘ri?
+A) $(this).hidden()
+B) $(this).hide()
+C) this.hide()
+D) $("this").hide()
+(Javob: B)
+
+3. jQuery yordamida barcha p elementlarini yashirish qaysi yozuvda to‘g‘ri?
+A) $("p").hide()
+B) $(".p").hide()
+C) $("p").hidden()
+D) $("#p").hide()
+(Javob: A)
+
+4. id="test" elementini jQuery yordamida yashirish qaysi yozuvda to‘g‘ri?
+A) $("test").hide()
+B) $(".test").hide()
+C) $("#test").hide()
+D) $(test.id).hidden()
+(Javob: C)
+
+5. class="test" elementlarini jQuery yordamida yashirish qaysi yozuvda to‘g‘ri?
+A) $("@test").hide()
+B) $("test").hide()
+C) $(".test").hide()
+D) $("#test").hide()
+(Javob: C)
+
+6. jQuery kodini DOM tayyor bo‘lganda bajarish uchun tavsiya etiladigan qisqa yozuv qaysi?
+A) $.ready = function () {};
+B) $(document).on("ready", function () {});
+C) $("ready", function () {});
+D) $(function () { /* kod */ });
+(Javob: D)
+
+7. $("#test") ifodasidagi #test qanday selektor?
+A) Class selektori
+B) Psevdo-element selektori
+C) Teg selektori
+D) ID selektori
+(Javob: D)
+
+8. $("p") ifodasidagi p qanday selektor?
+A) Atribut mavjudligi selektori
+B) Class selektori
+C) Element turi selektori
+D) ID selektori
+(Javob: C)
+
+9. $(".test") ifodasidagi .test qanday selektor?
+A) Class selektori
+B) ID selektori
+C) Psevdo-element selektori
+D) Element turi selektori
+(Javob: A)
+
+10. Har bir ul ning birinchi farzandi bo‘lgan li elementini tanlash qaysi yozuvda to‘g‘ri?
+A) $("ul > li::first-child")
+B) $("ul > li:first-child")
+C) $("ul:first-child > li")
+D) $("ul > li:last-child")
+(Javob: B)
+
+11. Barcha p elementlaridan birinchisini tanlashning tavsiya etiladigan usuli qaysi?
+A) $("p").firstChild()
+B) $("p").first()
+C) $("p").one()
+D) $("p::first")
+(Javob: B)
+
+12. p bosilganda xabar chiqaruvchi zamonaviy jQuery yozuvi qaysi?
+A) $("p").on("onclick", function () { alert("Salom"); });
+B) $("p").clickEvent(function () { alert("Salom"); });
+C) $("p").on("click", function () { alert("Salom"); });
+D) $("p").addEvent("click", function () { alert("Salom"); });
+(Javob: C)
+
+13. Element hududidan sichqoncha chiqishini tinglash qaysi jQuery yozuvida to‘g‘ri?
+A) $("#box").on("onmouseleave", function () {});
+B) $("#box").on("mouseoutside", function () {});
+C) $("#box").on("Mouseleave", function () {});
+D) $("#box").on("mouseleave", function () {});
+(Javob: D)
+
+14. jQuerydagi append() metodi yangi mazmunni qayerga qo‘shadi?
+A) Tanlangan elementning faqat atributlariga
+B) Tanlangan elementning tashqarisiga, undan oldin
+C) Har bir tanlangan elementning ichiga, mavjud mazmun oxiriga
+D) Faqat hujjatning boshiga
+(Javob: C)
+
+15. jQuerydagi prepend() metodi yangi mazmunni qayerga qo‘shadi?
+A) Har bir tanlangan elementning ichiga, mavjud mazmun boshiga
+B) Tanlangan elementning faqat stiliga
+C) Faqat hujjat sarlavhasiga
+D) Tanlangan elementning tashqarisiga, undan keyin
+(Javob: A)
+
+16. Sahifada jQuery va unga bog‘liq app.js klassik skriptlari ishlatilsa, qaysi yuklanish tartibi to‘g‘ri?
+A) jQuery faqat CSSdan keyin yozilsa ishlaydi
+B) jQuery app.js bajarilishidan oldin bajarilishi kerak
+C) Tartib hech qachon ahamiyatli emas
+D) app.js doim jQuerydan oldin bajarilishi kerak
+(Javob: B)
+
+17. jQueryda $(".card").length nimani qaytaradi?
+A) CSS faylining uzunligini
+B) Tanlangan elementlar sonini
+C) Birinchi elementning balandligini
+D) Oxirgi elementning matnini
+(Javob: B)
+
+18. jQueryda oddiy matn olish yoki o‘rnatish uchun qaysi metod ishlatiladi?
+A) .val()
+B) .text()
+C) .attr()
+D) .html()
+(Javob: B)
+
+19. jQueryda input qiymatini olish uchun qaysi metod ishlatiladi?
+A) .val()
+B) .text()
+C) .html()
+D) .name()
+(Javob: A)
+
+20. jQueryda tanlangan elementlarga active sinfini qo‘shish qaysi yozuvda to‘g‘ri?
+A) $(".card").classList.add("active")
+B) $(".card").cssClass("active")
+C) $(".card").addClass("active")
+D) $(".card").addClass(".active")
+(Javob: C)
+
+21. jQueryda active sinfini olib tashlash uchun qaysi metod ishlatiladi?
+A) .remove("active")
+B) .clearClass("active")
+C) .removeClass("active")
+D) .deleteClass("active")
+(Javob: C)
+
+22. jQueryda active sinfi bor bo‘lsa o‘chirish, yo‘q bo‘lsa qo‘shish qaysi yozuvda to‘g‘ri?
+A) .toggleClass("active")
+B) .toggleClass()
+C) .switchClass()
+D) .flip("active")
+(Javob: A)
+
+23. Checkboxning joriy belgilangan holatini olish uchun qaysi jQuery yozuvi mos?
+A) $("#agree").attr("checked")
+B) $("#agree").prop("checked")
+C) $("#agree").text("checked")
+D) $("#agree").val("checked")
+(Javob: B)
+
+24. Keyinroq qo‘shiladigan li elementlarining click hodisasini ro‘yxat orqali tutish qaysi yozuvda to‘g‘ri?
+A) $("#list").on("click", "li", handler)
+B) $("#list").listen("click", "li", handler)
+C) $("#list").on("onclick", "li", handler)
+D) $("#list").on("li", "click", handler)
+(Javob: A)
+
+25. .on("click.menu", handler) bilan biriktirilgan hodisani namespace orqali yechish qaysi yozuvda to‘g‘ri?
+A) .off(".menu")
+B) .deleteEvent("menu")
+C) .remove(".menu")
+D) .offClass("menu")
+(Javob: A)
+
+26. jQueryda hodisa ishlovchisini faqat bir marta bajarish uchun qaysi metod ishlatiladi?
+A) .single()
+B) .first()
+C) .once()
+D) .one()
+(Javob: D)
+
+27. jQuerydagi .find(".item") metodi qayerdan qidiradi?
+A) Butun server fayllari orasidan
+B) Faqat ularning o‘zidan
+C) Tanlangan elementlarning avlodlari orasidan
+D) Faqat ularning ota elementlaridan
+(Javob: C)
+
+28. jQuerydagi .closest(".card") qayerdan qidirishni boshlaydi?
+A) Elementning o‘zidan boshlaydi va ajdodlar tomon yuradi
+B) Har doim document oxiridan boshlaydi
+C) Faqat farzandlardan boshlaydi
+D) Faqat aka-uka elementlarni tekshiradi
+(Javob: A)
+
+29. jQueryda zanjirlangan chaqiriqqa qaysi misol mos?
+A) $("#box").length.show()
+B) $("#box").val().hide()
+C) $("#box").text().addClass("active")
+D) $("#box").addClass("active").show()
+(Javob: D)
+
+30. jQueryda ishonchsiz foydalanuvchi matnini HTML sifatida bajarmasdan ko‘rsatish uchun qaysi metod mos?
+A) .append(userInput)
+B) .html(userInput)
+C) .prepend(userInput)
+D) .text(userInput)
+(Javob: D)
+
+31. $.ajax() to‘liq jQuery yig‘ilmasida qanday vazifani bajaradi?
+A) Faqat JavaScript faylini kompilyatsiya qilish
+B) Asinxron HTTP so‘rovlarini sozlash va yuborish
+C) Faqat HTML elementini tanlash
+D) Faqat CSS animatsiyasini yaratish
+(Javob: B)
+
+32. $.ajax() natijasidagi muvaffaqiyatsiz so‘rovni qayta ishlash uchun qaysi metod ishlatiladi?
+A) .catchError()
+B) .error()
+C) .broken()
+D) .fail()
+(Javob: D)
+
+33. jQuery slim yig‘ilmasidan foydalanishda nimaga e’tibor berish kerak?
+A) Unda JavaScript umuman ishlamaydi
+B) U faqat serverda ishlaydi
+C) U har doim barcha modullarni qo‘shimcha yuklaydi
+D) Ajax va effektlar kabi ayrim modullar mavjud bo‘lmasligi mumkin
+(Javob: D)
+
+34. jQuery obyektidan birinchi haqiqiy DOM elementini olish qaysi yozuvda to‘g‘ri?
+A) $(".card").element()
+B) $(".card").firstDOM()
+C) $(".card").dom(0)
+D) $(".card").get(0)
+(Javob: D)
+
+35. jQuerydagi .each() ichidagi oddiy function ishlovchisida this odatda nima?
+A) Massivning faqat uzunligi
+B) Har doim jQuery kutubxonasi
+C) Joriy iteratsiyadagi DOM elementi
+D) Har doim global document
+(Javob: C)
+

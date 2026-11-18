@@ -1,0 +1,168 @@
+﻿1. Veb sahifa nima?
+A) Faqat ma’lumotlar bazasi jadvali
+B) Faqat operatsion tizim oynasi
+C) Faqat tarmoq kabeli
+D) Brauzerda ochiladigan, matn va boshqa resurslardan tashkil topgan veb hujjat
+(Javob: D)
+
+2. Veb serverning asosiy vazifasi nima?
+A) Ma'lumotlarni saqlashni tahlil qilish
+B) HTML teglarini CSS xossalariga aylantirish
+C) Mijoz so‘rovlarini qabul qilish va veb resurslarga oid javoblarni yuborish
+D) Faqat foydalanuvchi parolini yaratish
+(Javob: C)
+
+3. Veb sahifani ochish uchun serverga HTTP so‘rovini odatda qaysi dastur yuboradi?
+A) Arxivni ochuvchi dastur
+B) Matn shriftini boshqaruvchi dastur
+C) Printer drayveri
+D) Veb brauzer
+(Javob: D)
+
+4. Domen nomi nima?
+A) Faqat HTML faylining kengaytmasi
+B) Veb sahifaning CSS sinfi
+C) Brauzerdagi har qanday tugma
+D) DNS orqali resurslarni manzillashda ishlatiladigan ierarxik nom
+(Javob: D)
+
+5. Veb xosting nima?
+A) Kompyuter xotirasi
+B) Sayt fayllari yoki ilovasini serverda joylashtirish va foydalanishga taqdim etish xizmati
+C) JavaScript o‘zgaruvchisi
+D) HTML matnini qalinlashtirish usuli
+(Javob: B)
+
+6. Qaysi qatorda veb server dasturlari keltirilgan?
+A) Apache HTTP Server, nginx, Microsoft IIS
+B) Figma, Prettier, Git
+C) Chrome, Firefox, Safari
+D) HTML, CSS, JavaScript
+(Javob: A)
+
+7. Qaysi qatorda veb brauzerlar keltirilgan?
+A) HTML, CSS, JSON
+B) Chrome, Firefox, Edge, Safari
+C) Apache, nginx, IIS
+D) MySQL, PostgreSQL, SQLite
+(Javob: B)
+
+8. HTTP qisqartmasi qanday kengaytiriladi?
+A) Host Type Processing
+B) Hypertext Transfer Protocol
+C) Home Transfer Page
+D) Hyperlink Text Programming
+(Javob: B)
+
+9. URI qisqartmasi qanday kengaytiriladi?
+A) User Resource Input
+B) Universal Render Interface
+C) Unified Response Internet
+D) Uniform Resource Identifier
+(Javob: D)
+
+10. URLning asosiy vazifasi nima?
+A) Resurs manzilini va unga murojaat qilish sxemasini ifodalash
+B) Faqat serverning protsessori manzilini tanlash
+C) Faqat foydalanuvchi manzilini aniqlash
+D) Faqat matn rangini belgilash
+(Javob: A)
+
+11. FTP qanday protokol?
+A) Form Text Property, forma xossasi
+B) Fast Template Parser, HTML tegi
+C) File Transfer Protocol, fayl uzatish protokoli
+D) Font Type Program, shrift dasturi
+(Javob: C)
+
+12. TCP protokoli qanday xizmatni taqdim etadi?
+A) HTML elementlarini ekranga chizish
+B) Domen nomlarini CSS sinflariga o‘girish
+C) Ilovalar o‘rtasida baytlar oqimini tartibli va ishonchli uzatish
+D) Fayllarni avtomatik ravishda shifrlash
+(Javob: C)
+
+13. Statik veb saytning xos belgisi qaysi?
+A) Unda JavaScript umuman ishlay olmaydi
+B) Unda rasm bo‘lishi mumkin emas
+C) Server oldindan tayyorlangan resurslarni har bir so‘rov uchun qayta yaratmasdan taqdim etadi
+D) U faqat internetdan uzilganda ishlaydi
+(Javob: C)
+
+14. Dinamik veb ilovada kontent qanday shakllanishi mumkin?
+A) Faqat brauzer qayta o‘rnatilganda
+B) Foydalanuvchi amali yoki ma’lumotga qarab dastur orqali o‘zgaradi
+C) Faqat GIF tasvirlar hisobiga
+D) Faqat HTML faylining nomi o‘zgarganda
+(Javob: B)
+
+15. Veb portal nima?
+A) Faqat tashqi web sayt manzili
+B) Faqat brauzer tarixidagi yozuv
+C) Faqat bitta CSS deklaratsiyasi
+D) Turli axborot va xizmatlarga yagona kirish nuqtasini taqdim etuvchi sayt
+(Javob: D)
+
+16. Qaysi qatorda kontentni boshqarish tizimlari keltirilgan?
+A) Chrome, Firefox, Safari
+B) HTML, CSS, HTTP
+C) WordPress, Drupal, Joomla
+D) TCP, IP, DNS
+(Javob: C)
+
+17. SQL nima?
+A) Rasm formatining nomi
+B) HTML teglarini chizish tili
+C) Brauzerning maxfiy rejimi
+D) Relyatsion ma’lumotlar bazalari bilan ishlash uchun so‘rovlar tili
+(Javob: D)
+
+18. Qaysi qatorda ma’lumotlar bazasini boshqarish tizimlari keltirilgan?
+A) HTTP, HTTPS, FTP, DNS
+B) MySQL, PostgreSQL, Microsoft SQL Server, Oracle Database
+C) Chrome, Edge, Firefox, Safari
+D) HTML, CSS, JavaScript, jQuery
+(Javob: B)
+
+19. CGI qisqartmasi nimani anglatadi?
+A) Client Grid Instruction
+B) Common Gateway Interface
+C) Cascading Global Internet
+D) Common Graphic Input
+(Javob: B)
+
+20. Tarmoq protokoli nima?
+A) Faqat elektr kabelining uzunligi
+B) Faqat sahifadagi sarlavha
+C) Tarmoqda ma’lumot almashish qoidalari va xabar formatlari majmui
+D) Faqat faylning nomi
+(Javob: C)
+
+21. https://example.com/windows/index.html manzilidagi example.com nimani bildiradi?
+A) URL sxemasini
+B) Hostning domen nomini
+C) Fayl kengaytmasini
+D) CSS selektorini
+(Javob: B)
+
+22. https://example.com/windows/index.html URLida /windows/index.html qismi nima?
+A) Resurs yo‘li
+B) CSS xossasi
+C) Brauzer oynasining nomi
+D) Domenning IP manzili
+(Javob: A)
+
+23. https://example.com/windows/index.html URLidagi yakuniy yo‘l segmenti qaysi?
+A) https
+B) example.com
+C) windows
+D) index.html
+(Javob: D)
+
+24. index.html fayl nomidagi .html qismi nimani bildiradi?
+A) Fayl kengaytmasini
+B) HTTP metodini
+C) Port raqamini
+D) Domen nomini
+(Javob: A)
+

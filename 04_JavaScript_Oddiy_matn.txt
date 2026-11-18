@@ -1,0 +1,476 @@
+﻿1. JavaScript satr literalidagi \\n escape ketma-ketligi nimani anglatadi?
+A) HTML tegini yopishni
+B) Bo‘sh satrni o‘chirishni
+C) Tabulyatsiya belgisini
+D) Yangi satr belgisini
+(Javob: D)
+
+2. document.querySelectorAll("*") nimani qaytaradi?
+A) Har doim bo‘sh massivni
+B) Faqat matn tugunlarini
+C) Faqat birinchi elementni
+D) Hujjatdagi barcha elementlarning statik NodeList to‘plamini
+(Javob: D)
+
+3. div ichidagi barcha p avlodlarini tanlash qaysi yozuvda to‘g‘ri?
+A) document.querySelectorAll("div > *p")
+B) document.querySelectorAll("p div")
+C) document.querySelectorAll("div p")
+D) document.querySelectorAll("div.p")
+(Javob: C)
+
+4. href atributi mavjud barcha elementlar qanday tanlanadi?
+A) document.querySelectorAll("[href]")
+B) document.querySelectorAll("#href")
+C) document.querySelectorAll(".href")
+D) document.querySelectorAll("href")
+(Javob: A)
+
+6. JavaScriptdagi Boolean turining ikkita qiymati qaysi?
+A) true va false
+B) 1 va 0
+C) TRUE va FALSE
+D) yes va no
+(Javob: A)
+
+7. Qaysi JavaScript operatori bitta operandni mantiqiy inkor qiladi?
+A) ||
+B) ===
+C) &&
+D) !
+(Javob: D)
+
+8. Qaysi JavaScript operatori bo‘lishdan qolgan qoldiqni hisoblaydi?
+A) /
+B) ++
+C) %
+D) **
+(Javob: C)
+
+9. JavaScriptda bitlar bo‘yicha AND operatori qaysi?
+A) &
+B) ||
+C) &&
+D) !
+(Javob: A)
+
+10. JavaScriptda bitlarni chapga siljitish operatori qaysi?
+A) <<
+B) >>
+C) >>>
+D) <=
+(Javob: A)
+
+11. a >= b ifodasi nimani tekshiradi?
+A) a ning b dan kichikligini
+B) a ning b dan katta yoki tengligini
+C) a ni b ga o‘zlashtirishni
+D) a va b ning bir xil turga egaligini
+(Javob: B)
+
+12. JavaScriptda qisqa tutashuvli mantiqiy AND operatori qaysi?
+A) ??
+B) ||
+C) &
+D) &&
+(Javob: D)
+
+13. Bo‘sh massiv yaratish qaysi yozuvda to‘g‘ri?
+A) const items = array;
+B) const items = ();
+C) const items = [];
+D) const items = <>;
+(Javob: C)
+
+14. Qaysi qatorda JavaScriptning o‘zida mavjud obyektlar keltirilgan?
+A) header, article, footer
+B) document, window, navigator
+C) Math, JSON, Date
+D) div, span, main
+(Javob: C)
+
+15. document obyektining asosiy vazifasi nima?
+A) Yuklangan hujjatga va uning DOM tuzilishiga kirish berish
+B) Faqat sonlarni yaxlitlash
+C) Faqat server fayllarini o‘chirish
+D) Faqat JavaScript kodini kompilyatsiya qilish
+(Javob: A)
+
+16. Brauzerdagi sahifa kontekstida window nimani ifodalaydi?
+A) Joriy brauzer oynasi yoki freymiga oid global muhit interfeysini
+B) Faqat HTMLdagi dialog elementini
+C) Faqat joriy DOM elementini
+D) Faqat barcha massivlar to‘plamini
+(Javob: A)
+
+17. ["a", "b"].join("-") qanday qiymat qaytaradi?
+A) ab-
+B) a,b
+C) ["a-b"]
+D) a-b
+(Javob: D)
+
+18. JavaScriptda sana va vaqt bilan ishlash uchun qaysi konstruktor mavjud?
+A) TimeOnly
+B) DateTime()
+C) Date
+D) CalendarTime
+(Javob: C)
+
+19. Brauzerda ma’qullash yoki rad etish dialogini qaysi chaqiriq chiqaradi?
+A) prompt("Davom etilsinmi?")
+B) console.log("Davom etilsinmi?")
+C) confirm("Davom etilsinmi?")
+D) alert("Davom etilsinmi?")
+(Javob: C)
+
+20. Brauzerning oddiy ogohlantirish dialogini qaysi chaqiriq chiqaradi?
+A) console.log("Xabar")
+B) confirm("Xabar")
+C) alert("Xabar")
+D) prompt("Xabar")
+(Javob: C)
+
+21. prompt() natijasi foydalanuvchi Cancel tugmasini bosganda nima bo‘ladi?
+A) Bo‘sh massiv
+B) null
+C) false satri
+D) Har doim 0 soni
+(Javob: B)
+
+22. JavaScriptda primitive qiymatga misol qaysi?
+A) {}
+B) []
+C) new Date()
+D) 42
+(Javob: D)
+
+23. parseFloat("12.5px") qanday natija qaytaradi?
+A) 12
+B) "12.5px"
+C) NaN
+D) 12.5
+(Javob: D)
+
+24. [1, 2, 3, 4].filter(n => n > 2) natijasi qaysi?
+A) [3, 4]
+B) 4
+C) [true, true]
+D) [1, 2]
+(Javob: A)
+
+25. DOM nima?
+A) Faqat SQL so‘rovlar to‘plami
+B) Faqat brauzerning fayl yuklash protokoli
+C) Hujjatni tugunlar daraxti sifatida ifodalovchi va u bilan ishlashga imkon beruvchi interfeyslar majmui
+D) Faqat CSS ranglari jadvali
+(Javob: C)
+
+26. DOM metodiga qaysi misol mos?
+A) font-size: 16px
+B) SELECT * FROM pages
+C) <p>Matn</p>
+D) document.createElement("p")
+(Javob: D)
+
+27. id="title" elementini olish qaysi yozuvda to‘g‘ri?
+A) document.getElementById("title")
+B) document.getElementByTag("title")
+C) document.getElementsByClassName("title")
+D) document.getElementById("#title")
+(Javob: A)
+
+28. document.getElementsByTagName("p") nima qaytaradi?
+A) Faqat bitta p matnini
+B) Faqat p ning CSS qoidasini
+C) Har doim JavaScript massivini
+D) p elementlarining jonli HTMLCollection to‘plamini
+(Javob: D)
+
+29. class="card" elementlarini olish qaysi yozuvda to‘g‘ri?
+A) document.getElementById(".card")
+B) document.getElementByClass("card")
+C) document.getElementsByTagName(".card")
+D) document.getElementsByClassName("card")
+(Javob: D)
+
+30. Ishonchli HTML satrini element ichiga HTML sifatida joylash uchun qaysi xossa ishlatiladi?
+A) className
+B) textContent
+C) nodeName
+D) innerHTML
+(Javob: D)
+
+31. Elementning title atributini o‘zgartirish qaysi yozuvda to‘g‘ri?
+A) element.titleAttribute("Izoh")
+B) element("title", "Izoh")
+C) element.getAttribute("title", "Izoh")
+D) element.setAttribute("title", "Izoh")
+(Javob: D)
+
+32. Elementga JavaScript orqali inline matn rangi berish qaysi yozuvda to‘g‘ri?
+A) element.css.color = "red";
+B) element.style("color", "red");
+C) element.color.style = "red";
+D) element.style.color = "red";
+(Javob: D)
+
+33. Mavjud elementni DOMdan olib tashlashning to‘g‘ri usuli qaysi?
+A) document.removeElement(element);
+B) element.remove();
+C) element.hide();
+D) element.deleteNode();
+(Javob: B)
+
+34. Browser Object Model deb odatda nimaga aytiladi?
+A) Faqat HTML teglarining to‘liq ro‘yxatiga
+B) Faqat JavaScript primitive turlariga
+C) Faqat CSS box modeliga
+D) Brauzer oynasi va muhitiga oid window, location, history kabi interfeyslar majmuiga
+(Javob: D)
+
+35. Yangi brauzer kontekstini ochishga urinish uchun qaysi metod ishlatiladi?
+A) window.open("https://example.com/")
+B) document.openTab("https://example.com/")
+C) navigator.window("https://example.com/")
+D) windows.open("https://example.com/")
+(Javob: A)
+
+36. Joriy hujjatning URLini olish uchun qaysi xossa ishlatiladi?
+A) window.history.url
+B) document.style.href
+C) window.location.href
+D) window.navigator.url
+(Javob: C)
+
+37. Joriy kontekstda boshqa URLga o‘tish qaysi yozuvda to‘g‘ri?
+A) document.assignURL("https://example.com/")
+B) window.navigator.assign("https://example.com/")
+C) window.location.assign("https://example.com/")
+D) window.history.open("https://example.com/")
+(Javob: C)
+
+38. Brauzer muhiti haqidagi ma’lumot va ayrim imkoniyatlarga kirish beruvchi obyekt qaysi?
+A) Window.Navigator
+B) document.browser
+C) window.styles
+D) window.navigator
+(Javob: D)
+
+39. JavaScript muntazam ifodasida bo‘shliq belgilaridan birini topuvchi ifoda qaysi?
+A) /\\w/
+B) /\\s/
+C) /\\d/
+D) /\\S/
+(Javob: B)
+
+40. let va const e’lonlariga xos umumiy belgi qaysi?
+A) Faqat HTML ichida ishlaydi
+B) Har doim global doiraga ega
+C) Faqat satr saqlaydi
+D) Blok doirasiga ega
+(Javob: D)
+
+41. const bilan e’lon qilingan obyekt uchun qaysi fikr to‘g‘ri?
+A) Bog‘lanishni qayta tayinlab bo‘lmaydi, lekin obyekt xossalari o‘zgarishi mumkin
+B) U avtomatik JSON satriga aylanadi
+C) Obyektning hech bir xossasi o‘zgara olmaydi
+D) U faqat raqamli xossalarga ega bo‘ladi
+(Javob: A)
+
+42. 5 === "5" ifodasining natijasi nima?
+A) "true"
+B) true
+C) 5
+D) false
+(Javob: D)
+
+43. "5" + 2 ifodasining natijasi nima?
+A) NaN
+B) "52"
+C) 7
+D) "7"
+(Javob: B)
+
+44. Number("12") natijasi qaysi turga mansub?
+A) number
+B) boolean
+C) string
+D) object
+(Javob: A)
+
+45. Arrow function qaysi javobda to‘g‘ri yozilgan?
+A) function => add(a, b);
+B) const add = (a, b) => a + b;
+C) const add = (a, b) -> a + b;
+D) const add => (a, b) = a + b;
+(Javob: B)
+
+46. JavaScript template literal qaysi belgilar orasida yoziladi?
+A) Faqat oddiy qavslar orasida
+B) Backtick belgilar orasida
+C) Faqat burchak qavslar orasida
+D) Faqat kvadrat qavslar orasida
+(Javob: B)
+
+47. [1, 2, 3].map(n => n * 2) natijasi qaysi?
+A) [1, 2, 3]
+B) 6
+C) [true, true, true]
+D) [2, 4, 6]
+(Javob: D)
+
+48. Massiv oxiriga yangi element qo‘shish uchun qaysi metod ishlatiladi?
+A) pop()
+B) push()
+C) shift()
+D) join()
+(Javob: B)
+
+49. Massivning oxirgi elementini olib tashlab, uni qaytaruvchi metod qaysi?
+A) push()
+B) concat()
+C) map()
+D) pop()
+(Javob: D)
+
+50. for...of sikli massivda odatda nimalarni beradi?
+A) Faqat indekslarni satr sifatida
+B) Faqat metod nomlarini
+C) Element qiymatlarini
+D) Faqat massiv uzunligini
+(Javob: C)
+
+51. document.querySelector(".card") nima qaytaradi?
+A) Barcha mos elementlar massivini
+B) Birinchi mos elementni yoki topilmasa nullni
+C) Har doim HTMLCollectionni
+D) Faqat class matnini
+(Javob: B)
+
+52. Elementga oddiy matnni HTML sifatida talqin qilmasdan joylash uchun qaysi xossa mos?
+A) textContent
+B) outerHTML
+C) innerStyle
+D) innerHTML
+(Javob: A)
+
+53. Elementga CSS sinfini qo‘shish qaysi yozuvda to‘g‘ri?
+A) element.classList.add("active")
+B) element.classList.push("active")
+C) element.style.addClass("active")
+D) element.add("class", "active")
+(Javob: A)
+
+54. Tugma bosilishini JavaScriptda tinglash qaysi yozuvda to‘g‘ri?
+A) button.addEventListener("onclick", handler)
+B) button.on("onclick", handler)
+C) button.addEventListener("click", handler)
+D) button.listen("clicked", handler)
+(Javob: C)
+
+55. event.preventDefault() nima qiladi?
+A) Elementni DOMdan o‘chiradi
+B) Barcha keyingi JavaScript kodini to‘xtatadi
+C) Hodisaning tarqalishini har doim to‘xtatadi
+D) Bekor qilinadigan hodisaning odatiy amalini bekor qiladi
+(Javob: D)
+
+56. Hodisalardagi bubbling nimani bildiradi?
+A) Hodisaning nishon elementdan ajdodlar tomon tarqalish bosqichini
+B) Faqat element shriftining kattalashishini
+C) Har qanday hodisaning takrorlanmasligini
+D) Hodisaning faqat serverga yuborilishini
+(Javob: A)
+
+57. DOMga yangi p elementini yaratish uchun qaysi metod ishlatiladi?
+A) document.queryElement("p")
+B) document.addHTML("p")
+C) document.createElement("p")
+D) document.newTag("p")
+(Javob: C)
+
+58. JSON satrini JavaScript qiymatiga o‘girish uchun qaysi metod ishlatiladi?
+A) JSON.stringify()
+B) JSON.render()
+C) JSON.parse()
+D) JSON.toHTML()
+(Javob: C)
+
+59. JavaScript obyektini JSON satriga o‘girish uchun qaysi metod ishlatiladi?
+A) JSON.parse()
+B) JSON.convertToDOM()
+C) JSON.stringify()
+D) JSON.object()
+(Javob: C)
+
+60. localStorage.setItem("theme", "dark") qiymatni qanday saqlaydi?
+A) Faqat JavaScript massivida
+B) Faqat URLning fragmentida
+C) Har doim server bazasiga
+D) Joriy origin uchun satr ko‘rinishida
+(Javob: D)
+
+61. fetch() odatda nimani qaytaradi?
+A) Tayyor JSON obyektini darhol
+B) Faqat Boolean qiymatini
+C) Har doim HTML elementini
+D) Promise obyektini
+(Javob: D)
+
+62. fetch so‘rovida response.ok qaysi HTTP holatlari uchun true bo‘ladi?
+A) Faqat 500 holatida
+B) Barcha holatlarda
+C) 200 dan 299 gacha bo‘lgan holatlarda
+D) Faqat 404 holatida
+(Javob: C)
+
+63. fetch javobi 404 bo‘lsa qaysi fikr to‘g‘ri?
+A) response.ok har doim true bo‘ladi
+B) Brauzer JavaScriptni butunlay yopadi
+C) Promise odatda Response bilan bajariladi, HTTP xatosini kodda tekshirish kerak
+D) Promise har doim tarmoq xatosi sifatida rad etiladi
+(Javob: C)
+
+64. await kalit so‘zi odatda qayerda ishlatilishi mumkin?
+A) Faqat CSS faylida
+B) Istalgan oddiy funksiya ichida shartsiz
+C) Faqat HTML atributi nomida
+D) async funksiya ichida va modulning yuqori darajasida
+(Javob: D)
+
+65. async funksiya chaqirilganda qanday qiymat qaytaradi?
+A) Har doim DOM element
+B) Promise
+C) Har doim oddiy satr
+D) Har doim undefined
+(Javob: B)
+
+66. try...catch nima uchun qo‘llanadi?
+A) Kod bajarilishida yuzaga kelgan istisnolarni qayta ishlash uchun
+B) Faqat CSS selektorini topish uchun
+C) Barcha asinxron xatolarni avtomatik tutish uchun
+D) Faqat HTMLni validatsiya qilish uchun
+(Javob: A)
+
+67. Array.isArray([]) natijasi nima?
+A) undefined
+B) false
+C) true
+D) "array"
+(Javob: C)
+
+68. const { name } = user; yozuvi nima qiladi?
+A) user obyektini JSONga aylantiradi
+B) user obyektining name xossasini destructuring orqali o‘qiydi
+C) name xossasini userdan o‘chiradi
+D) userni massivga aylantiradi
+(Javob: B)
+
+69. null ?? "standart" ifodasining natijasi nima?
+A) 0
+B) null
+C) "standart"
+D) false
+(Javob: C)
+
