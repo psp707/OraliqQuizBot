@@ -44,20 +44,25 @@ SUBJECTS = {
 }
 
 # ================= MA'LUMOTLAR BAZASI =================
+# ================= MA'LUMOTLAR BAZASI =================
 def init_db():
     conn = sqlite3.connect('quiz_results.db')
     cursor = conn.cursor()
+    
+    # 1. Asosiy jadvalni yaratish (chat_type ustunisiz, eski versiya uchun)
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS results (
             user_id INTEGER PRIMARY KEY, username TEXT, full_name TEXT,
-            score INTEGER, total_questions INTEGER, topic TEXT, chat_id INTEGER, chat_type TEXT, date TEXT
+            score INTEGER, total_questions INTEGER, topic TEXT, chat_id INTEGER, date TEXT
         )
     ''')
-    # Agar jadval allaqachon mavjud bo'lsa va chat_type ustuni yo'q bo'lsa, qo'shamiz
-    try:
-        cursor.execute("ALTER TABLE results ADD COLUMN chat_type TEXT")
-    except sqlite3.OperationalError:
-        pass  # Ustun allaqachon mavjud, xatolikni e'tiborsiz qoldiramiz
+    
+    # 2. chat_type ustuni bor-yo'qligini tekshirish va yo'q bo'lsa qo'shish
+    cursor.execute("PRAGMA table_info(results)")
+    columns = [col[1] for col in cursor.fetchall()]
+    if 'chat_type' not in columns:
+        cursor.execute("ALTER TABLE results ADD COLUMN chat_type TEXT DEFAULT 'private'")
+        print("✅ Bazaga 'chat_type' ustuni muvaffaqiyatli qo'shildi!")
     
     conn.commit()
     conn.close()
@@ -72,18 +77,6 @@ def save_result(user_id, username, full_name, score, total, topic, chat_id, chat
           datetime.now().strftime("%Y-%m-%d %H:%M")))
     conn.commit()
     conn.close()
-
-def save_result(user_id, username, full_name, score, total, topic, chat_id, chat_type):
-    conn = sqlite3.connect('quiz_results.db')
-    cursor = conn.cursor()
-    cursor.execute('''
-        INSERT OR REPLACE INTO results (user_id, username, full_name, score, total_questions, topic, chat_id, chat_type, date)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-    ''', (user_id, username, full_name, score, total, topic, chat_id, chat_type,
-          datetime.now().strftime("%Y-%m-%d %H:%M")))
-    conn.commit()
-    conn.close()
-
 init_db()
 
 # ================= SAVOLLARNI O'QISH =================
@@ -323,7 +316,8 @@ async def ask_question_group(chat_id: int):
     
     game["answers"] = {}
     game["timer_q_index"] = q_index
-    
+  
+   await asyncio.sleep(1)
     sent_poll = await bot.send_poll(
         chat_id=chat_id,
         question=f"{progress}\n\n{q['text']}", 
