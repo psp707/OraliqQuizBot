@@ -162,29 +162,35 @@ user_sessions = {}
 active_games = {}  # chat_id -> game data
 
 async def set_bot_commands():
+    # SHAXSIY CHAT uchun
     private_commands = [
-        BotCommand(command="start", description="🚀 Testni boshlash"),
-        BotCommand(command="topics", description="📚 Mavzu tanlash"),
+        BotCommand(command="start",    description="🚀 Testni boshlash"),
+        BotCommand(command="topics",   description="📚 Mavzu tanlash"),
         BotCommand(command="progress", description="📊 Joriy natijam"),
-        BotCommand(command="stats", description="📈 Shaxsiy statistika"),
-        BotCommand(command="stop", description="⏹ To'xtatish"),
-        BotCommand(command="help", description="❓ Yordam"),
+        BotCommand(command="stats",    description="📈 Shaxsiy statistika"),
+        BotCommand(command="stop",     description="⏹ To'xtatish"),
+        BotCommand(command="help",     description="❓ Yordam"),
     ]
+    
+    # BARCHA GURUHLAR uchun (ID kerak emas!)
     group_commands = [
-        BotCommand(command="start", description="🚀 Guruh testini boshlash"),
-        BotCommand(command="quiz", description="🎯 Yangi test boshlash"),
-        BotCommand(command="players", description="👥 Ishtirokchilar"),
-        BotCommand(command="leaderboard", description="🏆 Reyting"),
-        BotCommand(command="stop", description="⏹ To'xtatish (admin)"),
-        BotCommand(command="help", description="❓ Yordam"),
+        BotCommand(command="start",    description="🚀 Guruh testini boshlash"),
+        BotCommand(command="stop",     description="⏹ Testni to'xtatish (admin)"),
+        BotCommand(command="results",  description="📊 Natijalar (admin)"),
+        BotCommand(command="help",     description="❓ Yordam"),
     ]
+    
     try:
+        # Shaxsiy chatga o'rnatish
         await bot.set_my_commands(private_commands, scope=BotCommandScopePrivate())
+        print("✅ Shaxsiy chat komandalari sozlandi!")
+        
+        # Barcha guruhlarga avtomatik o'rnatish
         await bot.set_my_commands(group_commands, scope=BotCommandScopeAllGroupChats())
-        print("✅ Command'lar sozlandi!")
+        print("✅ Barcha guruhlar uchun komandalar sozlandi!")
+        
     except Exception as e:
-        print(f"⚠️ Command xato: {e}")
-
+        print(f"⚠️ Komanda sozlashda xato: {e}")
 def get_stop_keyboard():
     return InlineKeyboardMarkup(inline_keyboard=[
         [InlineKeyboardButton(text="⏹ To'xtatish", callback_data="stop_quiz")]
