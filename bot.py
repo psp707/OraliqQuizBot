@@ -1,3 +1,4 @@
+from aiohttp import web
 import asyncio
 import re
 import os
@@ -551,9 +552,28 @@ async def process_poll_answer(poll_answer: PollAnswer, state: FSMContext):
         if user_id not in active_game["scores"]: active_game["scores"][user_id] = 0
         if user_id not in active_game["answers"]: active_game["answers"][user_id] = option_id
 
+async def start_http_server():
+    """Render uchun kichik HTTP server"""
+    async def handle(request):
+        return web.Response(text="✅ Bot ishlayapti!")
+    
+    app = web.Application()
+    app.router.add_get('/', handle)
+    runner = web.AppRunner(app)
+    await runner.setup()
+    
+    port = int(os.environ.get('PORT', 10000))
+    site = web.TCPSite(runner, '0.0.0.0', port)
+    await site.start()
+    print(f"🌐 HTTP server {port} portida ishga tushdi")
+
 async def main():
     await set_bot_commands()
-    print("🚀 Bot ishga tushdi... (PM: mavzu+30 blok | Guruh: 39 blok reyting)")
+    
+    # HTTP server ni ishga tushirish (Render uchun)
+    asyncio.create_task(start_http_server())
+    
+    print("🚀 Bot ishga tushdi...")
     await dp.start_polling(bot)
 
 if __name__ == "__main__":
