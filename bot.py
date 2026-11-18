@@ -114,18 +114,34 @@ active_game = {
 }
 
 async def set_bot_commands():
-    commands = [
-        BotCommand(command="start",   description="🚀 Testni boshlash"),
-        BotCommand(command="topics",  description="📚 Mavzu tanlash (shaxsiy)"),
-        BotCommand(command="players", description="👥 Ishtirokchilar (guruh)"),
-        BotCommand(command="progress",description="📊 Joriy natijam"),
-        BotCommand(command="stop",    description="⏹ To'xtatish"),
-        BotCommand(command="results", description="🏆 Barcha natijalar (admin)"),
-        BotCommand(command="help",    description="❓ Yordam"),
+    # SHAXSIY CHAT uchun command'lar
+    private_commands = [
+        BotCommand(command="start",    description="🚀 Testni boshlash"),
+        BotCommand(command="topics",   description="📚 Mavzu tanlash"),
+        BotCommand(command="progress", description="📊 Joriy natijam"),
+        BotCommand(command="stats",    description="📈 Shaxsiy statistika"),
+        BotCommand(command="stop",     description="⏹ Testni to'xtatish"),
+        BotCommand(command="help",     description="❓ Yordam"),
     ]
-    await bot.set_my_commands(commands)
-    print("✅ Telegram menyu (☰) sozlandi!")
-
+    
+    # GURUH uchun command'lar
+    group_commands = [
+        BotCommand(command="start",     description="🚀 O'yinni boshlash/qo'shilish"),
+        BotCommand(command="players",   description="👥 Ishtirokchilar reytingi"),
+        BotCommand(command="leaderboard", description="🏆 Guruh reytingi"),
+        BotCommand(command="stop",      description="⏹ O'yinni to'xtatish (admin)"),
+        BotCommand(command="results",   description="📊 Barcha natijalar (admin)"),
+        BotCommand(command="help",      description="❓ Yordam"),
+    ]
+    
+    try:
+        await bot.set_my_commands(private_commands, scope=BotCommandScopePrivate())
+        print("✅ Shaxsiy chat command'lari sozlandi!")
+        
+        await bot.set_my_commands(group_commands, scope=BotCommandScopeAllGroupChats())
+        print("✅ Guruh command'lari sozlandi!")
+    except Exception as e:
+        print(f"⚠️ Command sozlashda xato: {e}")
 def get_stop_keyboard():
     return InlineKeyboardMarkup(inline_keyboard=[
         [InlineKeyboardButton(text="⏹ To'xtatish", callback_data="stop_quiz")]
@@ -578,3 +594,63 @@ async def main():
 
 if __name__ == "__main__":
     asyncio.run(main())
+
+
+@router.message(Command("stats"))
+async def cmd_stats(message: Message):
+    if message.from_user.is_bot: return
+    if message.chat.type != 'private':
+        await message.answer("📊 Bu command faqat shaxsiy chatda ishlaydi!")
+        return
+    
+    user_id = message.from_user.id
+    conn = sqlite3.connect('quiz_results.db')
+    cursor = conn.cursor()
+    cursor.execute("""
+        SELECT topic, score, total_questions, date 
+        FROM results WHERE user_id = ? ORDER BY date DESC
+    """, (user_id,))
+    rows = cursor.fetchall()
+    conn.close()
+    
+    if not rows:
+        await message.answer("📊 Siz hali test ishlamagansiz. /start bosing!")
+        return
+    
+    text = f"📊 <b>Sizning Statistikangiz</b>\n\n"
+    for topic, score, total, date in rows:
+        percent = round(score / total * 100) if total else 0
+        emoji = "🏆" if percent >= 80 else "👍" if percent >= 60 else "📚"
+        text += f"{emoji} {topic}\n   ✅ {score}/{total} ({percent}%)\n   📅 {date}\n\n"
+    
+    await message.answer(text, parse_mode="HTML")
+
+
+@router.message(Command("leaderboard"))
+async def cmd_leaderboard(message: Message):
+    if message.from_user.is_bot: return
+    if message.chat.type not in ['group', 'supergroup']:
+        await message.answer("🏆 Bu command faqat guruhda ishlaydi!")
+        return
+    
+    conn = sqlite3.connect('quiz_results.db')
+    cursor = conn.cursor()
+    cursor.execute("""
+        SELECT full_name, username, score, total_questions, date 
+        FROM results WHERE chat_id = ? ORDER BY score DESC LIMIT 10
+    """, (message.chat.id,))
+    rows = cursor.fetchall()
+    conn.close()
+    
+    if not rows:
+        await message.answer("📊 Bu guruhda hali natijalar yo'q.")
+        return
+    
+    text = f"🏆 <b>Guruh Reytingi</b> (Top 10)\n\n"
+    for i, (name, username, score, total, date) in enumerate(rows):
+        uname = f"@{username}" if username else ""
+        percent = round(score / total * 100) if total else 0
+        emoji = "🥇" if i == 0 else "🥈" if i == 1 else "🥉" if i == 2 else f"{i+1}."
+        text += f"{emoji} {name} {uname}\n   ✅ {score}/{total} ({percent}%)\n\n"
+    
+    await message.answer(text, parse_mode="HTML")
