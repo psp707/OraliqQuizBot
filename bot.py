@@ -8,7 +8,7 @@ from aiogram import Bot, Dispatcher, Router, F
 from aiogram.filters import Command
 from aiogram.types import (Message, CallbackQuery, PollAnswer,
                            InlineKeyboardMarkup, InlineKeyboardButton, BotCommand,
-                           BotCommandScopePrivate, BotCommandScopeAllGroupChats)
+                           BotCommandScopeAllPrivateChats, BotCommandScopeAllGroupChats)
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
 from aiogram.fsm.storage.memory import MemoryStorage
@@ -162,7 +162,6 @@ user_sessions = {}
 active_games = {}  # chat_id -> game data
 
 async def set_bot_commands():
-    # SHAXSIY CHAT uchun
     private_commands = [
         BotCommand(command="start",    description="🚀 Testni boshlash"),
         BotCommand(command="topics",   description="📚 Mavzu tanlash"),
@@ -172,25 +171,24 @@ async def set_bot_commands():
         BotCommand(command="help",     description="❓ Yordam"),
     ]
     
-    # BARCHA GURUHLAR uchun (ID kerak emas!)
     group_commands = [
         BotCommand(command="start",    description="🚀 Guruh testini boshlash"),
-        BotCommand(command="stop",     description="⏹ Testni to'xtatish (admin)"),
+        BotCommand(command="stop",     description="⏹ To'xtatish (admin)"),
         BotCommand(command="results",  description="📊 Natijalar (admin)"),
         BotCommand(command="help",     description="❓ Yordam"),
     ]
     
     try:
-        # Shaxsiy chatga o'rnatish
-        await bot.set_my_commands(private_commands, scope=BotCommandScopePrivate())
+        # Shaxsiy chat uchun
+        await bot.set_my_commands(private_commands, scope=BotCommandScopeAllPrivateChats())
         print("✅ Shaxsiy chat komandalari sozlandi!")
         
-        # Barcha guruhlarga avtomatik o'rnatish
+        # Barcha guruhlar uchun
         await bot.set_my_commands(group_commands, scope=BotCommandScopeAllGroupChats())
-        print("✅ Barcha guruhlar uchun komandalar sozlandi!")
+        print("✅ Guruh komandalari sozlandi!")
         
     except Exception as e:
-        print(f"⚠️ Komanda sozlashda xato: {e}")
+        print(f"⚠️ Xatolik: {e}")
 def get_stop_keyboard():
     return InlineKeyboardMarkup(inline_keyboard=[
         [InlineKeyboardButton(text="⏹ To'xtatish", callback_data="stop_quiz")]
